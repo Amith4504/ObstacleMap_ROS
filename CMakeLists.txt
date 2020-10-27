@@ -13,21 +13,9 @@ include(CheckCXXCompilerFlag)
 #   add_definitions(-DCOMPILEDWITHC11)
 #   message(STATUS "Using flag -std=c++11.")
 #endif()
-include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
 set (CMAKE_CXX_STANDARD 14)
 
-rosbuild_init()
-
-IF(NOT ROS_BUILD_TYPE)
-  SET(ROS_BUILD_TYPE Release)
-ENDIF()
-
-MESSAGE("Build type: " ${ROS_BUILD_TYPE})
-
-rosbuild_find_ros_package(dynamic_reconfigure)
-include(${dynamic_reconfigure_PACKAGE_PATH}/cmake/cfgbuild.cmake)
-gencfg()
 
 find_package(Eigen3  REQUIRED)
 find_package(PCL REQUIRED)
@@ -67,7 +55,7 @@ target_link_libraries(pcl_helper
 		     ${PCL_LIBRARIES})
 
 
-rosbuild_add_executable(dense_reconstruction
+add_executable(dense_reconstruction
   src/dense_reconstruction.cpp
 )
 
@@ -76,7 +64,7 @@ target_link_libraries(dense_reconstruction
 		     "-lpopt -lboost_system"
 		      pcl_helper)
 
-rosbuild_add_executable(match_pointcloud_and_slam_pose
+add_executable(match_pointcloud_and_slam_pose
 		src/match_pointcloud_and_slam_pose.cpp
 		)
 
@@ -86,7 +74,7 @@ target_link_libraries(match_pointcloud_and_slam_pose
 			 "-lpopt -lboost_system"
 			pcl_helper)
 
-rosbuild_add_executable(match_pointcloud_and_slam_pose2
+add_executable(match_pointcloud_and_slam_pose2
 		src/match_pointcloud_and_slam_pose2.cpp
 		)
 
