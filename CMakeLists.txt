@@ -16,6 +16,9 @@ include(CheckCXXCompilerFlag)
 
 set (CMAKE_CXX_STANDARD 14)
 
+find_package(dynamic_reconfigure REQUIRED)
+include(${dynamic_reconfigure_PACKAGE_PATH}/cmake/cfgbuild.cmake)
+gencfg()
 
 find_package(Eigen3  REQUIRED)
 find_package(PCL REQUIRED)
