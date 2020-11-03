@@ -77,7 +77,6 @@ void PC_callback(const sensor_msgs::PointCloud2& temp_pc)
     std::cout<<"ENDL"<<std::endl;
 
     pcl::PointCloud<pcl::PointXYZ>::Ptr original_cloud(new pcl::PointCloud<pcl::PointXYZ>);
-    
     for(auto iter = cur_pointcloud.points.begin(); iter!=cur_pointcloud.points.end(); ++iter)
     {
         pcl::PointXYZ p;

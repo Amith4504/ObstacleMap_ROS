@@ -1,24 +1,25 @@
 Determining if the pthread_create exist failed with the following output:
-Change Dir: /home/amith/Documents/DRONES/JETSON/Stereo_Development/GAAS/software/Obstacle_Map/build/CMakeFiles/CMakeTmp
+Change Dir: /home/rangeaero/Documents/to_test/GAAS/software/Obstacle_Map/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_19a6d/fast"
-/usr/bin/make -f CMakeFiles/cmTC_19a6d.dir/build.make CMakeFiles/cmTC_19a6d.dir/build
-make[1]: Entering directory '/home/amith/Documents/DRONES/JETSON/Stereo_Development/GAAS/software/Obstacle_Map/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_19a6d.dir/CheckSymbolExists.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_19a6d.dir/CheckSymbolExists.c.o   -c /home/amith/Documents/DRONES/JETSON/Stereo_Development/GAAS/software/Obstacle_Map/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTC_19a6d
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_19a6d.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_19a6d.dir/CheckSymbolExists.c.o  -o cmTC_19a6d 
-CMakeFiles/cmTC_19a6d.dir/CheckSymbolExists.c.o: In function `main':
-CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+Run Build Command:"/usr/bin/make" "cmTC_0ab69/fast"
+/usr/bin/make -f CMakeFiles/cmTC_0ab69.dir/build.make CMakeFiles/cmTC_0ab69.dir/build
+make[1]: Entering directory '/home/rangeaero/Documents/to_test/GAAS/software/Obstacle_Map/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_0ab69.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_0ab69.dir/CheckSymbolExists.c.o   -c /home/rangeaero/Documents/to_test/GAAS/software/Obstacle_Map/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_0ab69
+/home/rangeaero/Documents/Softwares/cmake-3.13.0/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0ab69.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_0ab69.dir/CheckSymbolExists.c.o  -o cmTC_0ab69 
+CMakeFiles/cmTC_0ab69.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x14): undefined reference to `pthread_create'
+CheckSymbolExists.c:(.text+0x18): undefined reference to `pthread_create'
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_19a6d.dir/build.make:86: recipe for target 'cmTC_19a6d' failed
-make[1]: *** [cmTC_19a6d] Error 1
-make[1]: Leaving directory '/home/amith/Documents/DRONES/JETSON/Stereo_Development/GAAS/software/Obstacle_Map/build/CMakeFiles/CMakeTmp'
-Makefile:121: recipe for target 'cmTC_19a6d/fast' failed
-make: *** [cmTC_19a6d/fast] Error 2
+CMakeFiles/cmTC_0ab69.dir/build.make:86: recipe for target 'cmTC_0ab69' failed
+make[1]: *** [cmTC_0ab69] Error 1
+make[1]: Leaving directory '/home/rangeaero/Documents/to_test/GAAS/software/Obstacle_Map/build/CMakeFiles/CMakeTmp'
+Makefile:121: recipe for target 'cmTC_0ab69/fast' failed
+make: *** [cmTC_0ab69/fast] Error 2
 
-File /home/amith/Documents/DRONES/JETSON/Stereo_Development/GAAS/software/Obstacle_Map/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+File /home/rangeaero/Documents/to_test/GAAS/software/Obstacle_Map/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
 /* */
 #include <pthread.h>
 
@@ -34,22 +35,22 @@ int main(int argc, char** argv)
 }
 
 Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /home/amith/Documents/DRONES/JETSON/Stereo_Development/GAAS/software/Obstacle_Map/build/CMakeFiles/CMakeTmp
+Change Dir: /home/rangeaero/Documents/to_test/GAAS/software/Obstacle_Map/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_484be/fast"
-/usr/bin/make -f CMakeFiles/cmTC_484be.dir/build.make CMakeFiles/cmTC_484be.dir/build
-make[1]: Entering directory '/home/amith/Documents/DRONES/JETSON/Stereo_Development/GAAS/software/Obstacle_Map/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_484be.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_484be.dir/CheckFunctionExists.c.o   -c /usr/local/share/cmake-3.12/Modules/CheckFunctionExists.c
-Linking C executable cmTC_484be
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_484be.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_484be.dir/CheckFunctionExists.c.o  -o cmTC_484be -lpthreads 
+Run Build Command:"/usr/bin/make" "cmTC_e9412/fast"
+/usr/bin/make -f CMakeFiles/cmTC_e9412.dir/build.make CMakeFiles/cmTC_e9412.dir/build
+make[1]: Entering directory '/home/rangeaero/Documents/to_test/GAAS/software/Obstacle_Map/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_e9412.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_e9412.dir/CheckFunctionExists.c.o   -c /home/rangeaero/Documents/Softwares/cmake-3.13.0/Modules/CheckFunctionExists.c
+Linking C executable cmTC_e9412
+/home/rangeaero/Documents/Softwares/cmake-3.13.0/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e9412.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_e9412.dir/CheckFunctionExists.c.o  -o cmTC_e9412 -lpthreads 
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_484be.dir/build.make:86: recipe for target 'cmTC_484be' failed
-make[1]: *** [cmTC_484be] Error 1
-make[1]: Leaving directory '/home/amith/Documents/DRONES/JETSON/Stereo_Development/GAAS/software/Obstacle_Map/build/CMakeFiles/CMakeTmp'
-Makefile:121: recipe for target 'cmTC_484be/fast' failed
-make: *** [cmTC_484be/fast] Error 2
+CMakeFiles/cmTC_e9412.dir/build.make:86: recipe for target 'cmTC_e9412' failed
+make[1]: *** [cmTC_e9412] Error 1
+make[1]: Leaving directory '/home/rangeaero/Documents/to_test/GAAS/software/Obstacle_Map/build/CMakeFiles/CMakeTmp'
+Makefile:121: recipe for target 'cmTC_e9412/fast' failed
+make: *** [cmTC_e9412/fast] Error 2
 
 

@@ -11,7 +11,7 @@
 #include <image_transport/image_transport.h>
 #include <cv_bridge/cv_bridge.h>
 #include <dynamic_reconfigure/server.h>
-#include "stereo_dense_reconstruction/CamToRobotCalibParamsConfig.h"
+#include <stereo_dense_reconstruction/CamToRobotCalibParamsConfig.h>
 #include <fstream>
 #include <ctime>
 #include <opencv2/opencv.hpp>
@@ -19,12 +19,11 @@
 #include "popt_pp.h"
 #include "pcl_helper.h"
 
-
 using namespace cv;
 using namespace std;
 
 
-Mat XR, XT, Q, P1, P2 , R_downward , T_downward;
+Mat XR, XT, Q, P1, P2,R_downward,T_downward;
 Mat R1, R2, K1, K2, D1, D2, R;
 Mat lmapx, lmapy, rmapx, rmapy;
 Vec3d T;
@@ -52,6 +51,14 @@ float distanceMax, distanceMin;
 int conductStereoRectify, max_x, min_x, max_y, min_y;
 
 pcl_helper* mpPCL_helper;
+
+//to find the depth
+double min_disp_found;
+double max_disp_found;
+double closest_dist;
+double farthest_dist;
+cv::Point minLoc;
+cv::Point maxLoc;
 
 Mat composeRotationCamToRobot(float x, float y, float z) {
 
@@ -104,6 +111,10 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
     sensor_msgs::PointCloud pc;
     pc.header.frame_id = "map";
     pc.header.stamp = ros::Time::now();
+
+    //code block to find closest depth found
+    // closest corresponds to max disparity
+    cv::minMaxLoc(dmap , &min)
 
     for (int i = 0; i < img_left.cols; i++)
     {
@@ -203,7 +214,7 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
 
     if (UsePCLfiltering)
     {
-        //conduct pointcloud filtering provided by PCL
+        //conduct pointcloud filering provided by PCL
         pcl::PointCloud<pcl::PointXYZ> output_cloud;
 
         mpPCL_helper->ROSPointCloud2toPointCloudXYZ(pc2, output_cloud);
@@ -440,6 +451,7 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
 }
 
 
+
 void findRectificationMap(Size finalSize) {
   Rect validRoi[2];
   cout << "Starting rectification" << endl;
@@ -552,47 +564,62 @@ int main(int argc, char** argv) {
     cout<<"SigmaColor: "<<SigmaColor<<endl;
 
     cout<<"displayImage: "<<displayImage<<endl;
-    cout<<"-----------------------------------"<<endl;
+    //cout<<"-----------------------------------"<<endl;
 
+    //cout<<"-----------------------------------"<<endl;
+
+    printf("creating node and image transport  handles\n");
 
     ros::init(argc, argv, "gi_depth_estimation");
+    printf("roinit\n");
     ros::NodeHandle nh;
-    image_transport::ImageTransport it(nh); //Allows publication of an image to a single subscriber. Only available inside  * subscriber connection callbacks.
-
-
+    printf("nh done\n");
+    image_transport::ImageTransport it(nh);
+    printf("image transport done\n");
+    printf("NOde handles and image transport handles created\n");
     disparity_method = method;
 
     calib_img_size = Size(calib_width, calib_height);
     out_img_size = Size(out_width, out_height);
+	
+    cout << "calib to be loaded" << endl;
 
-    calib_file = FileStorage(calib_file_name, FileStorage::READ);
+    //calib_file = FileStorage(calib_file_name, FileStorage::READ);
+	calib_file.open(calib_file_name , FileStorage::READ);
+    cout << "Filestorafe called \n";
+
     calib_file["K1"] >> K1;
+    cout << "Even this is not working\n";
     calib_file["K2"] >> K2;
     calib_file["D1"] >> D1;
     calib_file["D2"] >> D2;
     calib_file["R"] >> R;
     calib_file["T"] >> T;
-    calib_file["XR"] >> XR;
-    calib_file["XT"] >> XT;
-    calib_file["R_downward"] >>R_downward;
-    calib_file["T_downward"] >>T_downward;
+    cout << "Loaded till here\n";
+    //calib_file["XR"] >> XR;
+    //calib_file["XT"] >> XT;
+    //calib_file["R_downward"] >>R_downward;
+    //calib_file["T_downward"] >>T_downward;
 
+    printf("calibrations loaded\n");
     findRectificationMap(out_img_size);
     typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Image> SyncPolicy;
 
     int image_id = -1;
 
     mpPCL_helper = new pcl_helper(config_path);
+    printf("PCL helper loaded\n");
 
     //NOTE forward stereo pair.
-    message_filters::Subscriber<sensor_msgs::Image> sub_img_left(nh, left_img_topic, 1); // nh  , topic , queue size
+    message_filters::Subscriber<sensor_msgs::Image> sub_img_left(nh, left_img_topic, 1);
     message_filters::Subscriber<sensor_msgs::Image> sub_img_right(nh, right_img_topic, 1);
     image_id = 0;
     message_filters::Synchronizer<SyncPolicy> sync(SyncPolicy(10), sub_img_left, sub_img_right);
 
-
+    printf("Image Callback calling \n");
     sync.registerCallback(boost::bind(&imgCallback, _1, _2,image_id));
 
+    printf("Image Callback called \n");
 
     //NOTE downward stereo pair.
     //  message_filters::Subscriber<sensor_msgs::Image> sub_img_down_left(nh,"/stereo_down/right/image_raw",100);
@@ -608,16 +635,9 @@ int main(int argc, char** argv) {
     f = boost::bind(&paramsCallback, _1, _2);
     server.setCallback(f);
 
-    dmap_pub = it.advertise("/camera/left/disparity_map", 100); // 'it' is another image transport handle which is telling the master that 
-    
+    dmap_pub = it.advertise("/camera/left/disparity_map", 100);
 
     // for disparity map
-    // this tells that we are going to be publishing a message of type sensor_msgs::PointCloud2 on the topic "camera/left/point_cloud2" 
-    // this lets the master node to tell any nodes on "/camera/left/point_cloud2" that we are going to publish on that topic
-    // advertise returns a ros::Publisher object which contains a 
-    // publish() method which lets us publish over the topic it got created with
-    // when out of scope it is automatically unadverstise 
-    // buffer length 100
     pcl_pub = nh.advertise<sensor_msgs::PointCloud2>("/camera/left/point_cloud2",100);
 
     // for Navigator in python

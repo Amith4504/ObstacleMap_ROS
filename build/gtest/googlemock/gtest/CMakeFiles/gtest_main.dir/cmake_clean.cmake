@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/gtest_main.dir/src/gtest_main.cc.o"
-  "/home/amith/Documents/DRONES/JETSON/Stereo_Development/GAAS/software/Obstacle_Map/lib/libgtest_main.pdb"
-  "/home/amith/Documents/DRONES/JETSON/Stereo_Development/GAAS/software/Obstacle_Map/lib/libgtest_main.so"
+  "/home/rangeaero/Documents/to_test/GAAS/software/Obstacle_Map/lib/libgtest_main.pdb"
+  "/home/rangeaero/Documents/to_test/GAAS/software/Obstacle_Map/lib/libgtest_main.so"
 )
 
 # Per-language clean rules from dependency scanning.

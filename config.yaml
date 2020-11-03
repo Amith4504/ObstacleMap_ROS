@@ -5,17 +5,15 @@
 #--------------------------------------------------------------------------------------------
 
 # camera topics
-#left_img_topic:  /gi/simulation/left/image_raw
-#right_img_topic:  /gi/simulation/right/image_raw
-left_img_topic: /csi/image_0
-right_img_topic: /csi/image_1
+left_img_topic:  /csi/image_0
+right_img_topic:  /csi/image_1
 
 # Stereo calibration file name
-calib_file_name: calibration/mynteye2.yml
+calib_file_name: calibration/cam_stereo_rigid3.yml
 
 # Calibration image width and height
-calib_width: 752
-calib_height: 480
+calib_width: 1280 #752
+calib_height: 720 #480
 
 # Rectified image width and height
 out_width: 752
@@ -25,10 +23,10 @@ out_height: 480
 debug: 0
 
 # display image?
-displayImage: 0
+displayImage: 1
 
 # disparity maximum and minimum
-disparityMax: 20
+disparityMax: 30
 disparityMin: 2
 
 # maximum point distance (z)
@@ -54,17 +52,17 @@ SigmaColor: 10
 
 # common params for both methods:
 MinDisparity: 7
-NumDisparities: 32
+NumDisparities: 32 #32
 PreFilterCap: 63
-UniquenessRatio: 115
-SpeckleWindowSize: 0
+UniquenessRatio: 50 #115
+SpeckleWindowSize: 0 #0
 
 # for StereoBM (Block Matching) matcher params
 RangeOfDisparity: 16 # dividable by 16
-SizeOfBlockWindow: 7 # must be odd
+SizeOfBlockWindow: 7 # must be odd 7
 PreFilterSize: 255
 SmallerBlockSize: 7
-TextureThreshold: 255
+TextureThreshold: 155
 
 # for StereoSGBM (Semi-Global Block Matching) matcher params
 P1: 700

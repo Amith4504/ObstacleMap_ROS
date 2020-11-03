@@ -13,10 +13,19 @@ include(CheckCXXCompilerFlag)
 #   add_definitions(-DCOMPILEDWITHC11)
 #   message(STATUS "Using flag -std=c++11.")
 #endif()
+include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
 set (CMAKE_CXX_STANDARD 14)
 
-find_package(dynamic_reconfigure REQUIRED)
+rosbuild_init()
+
+IF(NOT ROS_BUILD_TYPE)
+  SET(ROS_BUILD_TYPE Release)
+ENDIF()
+
+MESSAGE("Build type: " ${ROS_BUILD_TYPE})
+
+rosbuild_find_ros_package(dynamic_reconfigure)
 include(${dynamic_reconfigure_PACKAGE_PATH}/cmake/cfgbuild.cmake)
 gencfg()
 
@@ -58,7 +67,7 @@ target_link_libraries(pcl_helper
 		     ${PCL_LIBRARIES})
 
 
-add_executable(dense_reconstruction
+rosbuild_add_executable(dense_reconstruction
   src/dense_reconstruction.cpp
 )
 
@@ -67,25 +76,26 @@ target_link_libraries(dense_reconstruction
 		     "-lpopt -lboost_system"
 		      pcl_helper)
 
-add_executable(match_pointcloud_and_slam_pose
-		src/match_pointcloud_and_slam_pose.cpp
-		)
+#rosbuild_add_executable(match_pointcloud_and_slam_pose
+#		src/match_pointcloud_and_slam_pose.cpp
+#		)
 
-target_link_libraries(match_pointcloud_and_slam_pose 
-			${OpenCV_LIBS}
-			${PCL_LIBRARIES}
-			 "-lpopt -lboost_system"
-			pcl_helper)
+#target_link_libraries(match_pointcloud_and_slam_pose 
+#			${OpenCV_LIBS}
+#			${PCL_LIBRARIES}
+#			 "-lpopt -lboost_system"
+#		pcl_helper)
 
-add_executable(match_pointcloud_and_slam_pose2
-		src/match_pointcloud_and_slam_pose2.cpp
-		)
+#rosbuild_add_executable(match_pointcloud_and_slam_pose2
+#		src/match_pointcloud_and_slam_pose2.cpp
+#		)
 
-target_link_libraries(match_pointcloud_and_slam_pose2
-			${OpenCV_LIBS}
-			${PCL_LIBRARIES}
-			 "-lpopt -lboost_system"
-			pcl_helper)
+
+#target_link_libraries(match_pointcloud_and_slam_pose2
+#			${OpenCV_LIBS}
+#			${PCL_LIBRARIES}
+#			 "-lpopt -lboost_system"
+#			pcl_helper)
 
 #rosbuild_add_executable(rgbd_camera_to_pointcloud
 #		src/rgbd_camera_to_pointcloud.cpp
