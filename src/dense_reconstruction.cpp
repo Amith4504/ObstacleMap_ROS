@@ -114,7 +114,11 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
 
     //code block to find closest depth found
     // closest corresponds to max disparity
-    cv::minMaxLoc(dmap , &min)
+    cv::minMaxLoc(dmap , &min_disp_found , &max_disp_found , &minLoc , &maxLoc);
+
+    std::cout << "min disp found :" << min_disp_found << endl;
+
+    std::cout << "max disp found :" << max_disp_found << endl;
 
     for (int i = 0; i < img_left.cols; i++)
     {
