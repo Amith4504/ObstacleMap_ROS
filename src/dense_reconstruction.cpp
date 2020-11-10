@@ -114,11 +114,7 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
 
     //code block to find closest depth found
     // closest corresponds to max disparity
-    cv::minMaxLoc(dmap , &min_disp_found , &max_disp_found , &minLoc , &maxLoc);
-
-    std::cout << "min disp found :" << min_disp_found << endl;
-
-    std::cout << "max disp found :" << max_disp_found << endl;
+    
 
     for (int i = 0; i < img_left.cols; i++)
     {
@@ -295,6 +291,11 @@ cv::Mat generateDisparityMapBM(Mat& left, Mat& right) {
         //step 5, conduct filtering
         cv::Mat filtered_disp;
         wls_filter->filter(left_disp,left,filtered_disp,right_disp);
+	cv::minMaxLoc(filtered_disp , &min_disp_found , &max_disp_found , &minLoc , &maxLoc);
+
+   	 std::cout << "min disp found filtered :" << min_disp_found << endl;
+
+   	 std::cout << "max disp found filtered:" << max_disp_found << endl;
 
         cv::Mat conf_map = cv::Mat(left.rows,left.cols,CV_8U);
         conf_map = Scalar(255);
@@ -304,7 +305,13 @@ cv::Mat generateDisparityMapBM(Mat& left, Mat& right) {
 
         //step 6, return value
         Mat dmap = Mat(out_img_size, CV_8UC1, Scalar(0));
+	cv::minMaxLoc(dmap , &min_disp_found , &max_disp_found , &minLoc , &maxLoc);
+
+   	 std::cout << "min disp found :" << min_disp_found << endl;
+
+   	 std::cout << "max disp found :" << max_disp_found << endl;
         filtered_disp.convertTo(dmap, CV_8UC1, 1.0 / 16);
+	
 
         //result_disparity = mpPCL_helper->DisparityWLSFilter(left, dmap)
         return dmap;
