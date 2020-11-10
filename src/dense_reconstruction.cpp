@@ -450,12 +450,14 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
 
   publishPointCloud(img_left_color, dmap, stereo_pair_id);
 
-
+  Mat dmap_rgb;
   if(displayImage)
   {
       imshow("LEFT", img_left);
       imshow("RIGHT", img_right);
+      cvtColor(dmap , dmap_rgb , CV_GRAY2RGB);
       imshow("DISP", dmap);
+      imshow("DISP_RGB" ,  dmap_rgb);
   }
 
   waitKey(30);
