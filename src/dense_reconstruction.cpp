@@ -60,6 +60,11 @@ double farthest_dist;
 cv::Point minLoc;
 cv::Point maxLoc;
 
+// create a lookup
+//Mat lookUpTable(1 , 256 , CV_8U);
+//uchar* p = lookUpTable.ptr();
+
+
 Mat composeRotationCamToRobot(float x, float y, float z) {
 
     Mat X = Mat::eye(3, 3, CV_64FC1);
@@ -434,13 +439,21 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
   {
       case 0:
       {
+          int t_SBM1 = cv::getTickCount();
           dmap = generateDisparityMapBM(img_left, img_right);
+          int t_SBM2 = cv::getTickCount();
+          int time = (t_SBM2 - t_SBM1) / cv::getTickFrequency(); 
+          printf("Disparity map generation using SBM took: %d" , time);
           break;
       }
 
       case 1:
       {
+          int t_SBM1 = cv::getTickCount();
           dmap = generateDisparityMapSGBM(img_left, img_right);
+          int t_SBM2 = cv::getTickCount();
+          int time = (t_SBM2 - t_SBM1) / cv::getTickFrequency(); 
+          printf("Disparity map generation using SGBM took: %d" , time);
           break;
       }
 
@@ -450,12 +463,38 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
 
   publishPointCloud(img_left_color, dmap, stereo_pair_id);
 
-  Mat dmap_rgb;
+
+  //Convert to RGB from gray scale
+  // Pseudo color depth map - nearest object RED , farthest blue
+  const Size dmap_size = dmap.size();
+  Mat dmap_rgb = Mat(dmap_size, CV_8UC3 , Scalar(0));
+  int channels_rgb = dmap.channels(); // should be asserted to one
+  int dmap_rgb_rows = dmap_rgb.rows;
+  int dmap_rgb_cols = dmap_rgb.cols * channels_rgb;
+
+  applyColorMap(dmap , dmap_rgb , COLORMAP_JET);
+
+  
+
+  // assign values looking at lookup
+  
+//   int channels = dmap.channels(); // should be asserted to one
+//   int dmap_rows = dmap.rows;
+//   int dmap_cols = dmap.cols * channels;
+
+//   if(dmap.isContinuous()){
+//       dmap_cols *= dmap_rows;
+//       dmap_rows = 1; 
+//  }
+
+
+
+
+
   if(displayImage)
   {
       imshow("LEFT", img_left);
       imshow("RIGHT", img_right);
-      cvtColor(dmap , dmap_rgb , CV_GRAY2RGB);
       imshow("DISP", dmap);
       imshow("DISP_RGB" ,  dmap_rgb);
   }
