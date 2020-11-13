@@ -439,21 +439,21 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
   {
       case 0:
       {
-          int t_SBM1 = cv::getTickCount();
+          float t_SBM1 = float(cv::getTickCount());
           dmap = generateDisparityMapBM(img_left, img_right);
-          int t_SBM2 = cv::getTickCount();
-          int time = (t_SBM2 - t_SBM1) / cv::getTickFrequency(); 
-          printf("Disparity map generation using SBM took: %d" , time);
+          float t_SBM2 = float(cv::getTickCount());
+          float time = (t_SBM2 - t_SBM1) / cv::getTickFrequency(); 
+          printf("Disparity map generation using SBM took: %f" , time);
           break;
       }
 
       case 1:
       {
-          int t_SBM1 = cv::getTickCount();
+          float t_SBM1 = float(cv::getTickCount());
           dmap = generateDisparityMapSGBM(img_left, img_right);
-          int t_SBM2 = cv::getTickCount();
-          int time = (t_SBM2 - t_SBM1) / cv::getTickFrequency(); 
-          printf("Disparity map generation using SGBM took: %d" , time);
+          float t_SBM2 = float(cv::getTickCount());
+          float time = (t_SBM2 - t_SBM1) / cv::getTickFrequency(); 
+          printf("Disparity map generation using SGBM took: %f" , time);
           break;
       }
 
