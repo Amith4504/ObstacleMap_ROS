@@ -315,7 +315,7 @@ cv::Mat generateDisparityMapBM(Mat& left, Mat& right) {
    	 std::cout << "min disp found :" << min_disp_found << endl;
 
    	 std::cout << "max disp found :" << max_disp_found << endl;
-        filtered_disp.convertTo(dmap, CV_8UC1, 1.0 / 16);
+        filtered_disp.convertTo(dmap, CV_8UC1, 1.0 / 4);
 	
 
         //result_disparity = mpPCL_helper->DisparityWLSFilter(left, dmap)
@@ -388,7 +388,7 @@ cv::Mat generateDisparityMapSGBM(Mat& left, Mat& right) {
 
         //step 6, return value
         Mat dmap = Mat(out_img_size, CV_8UC1, Scalar(0));
-        filtered_disp.convertTo(dmap, CV_8UC1, 1.0 / 16);
+        filtered_disp.convertTo(dmap, CV_8UC1, 1.0/2);
 
         //result_disparity = mpPCL_helper->DisparityWLSFilter(left, dmap)
         return dmap;
@@ -468,11 +468,13 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
   // Pseudo color depth map - nearest object RED , farthest blue
   const Size dmap_size = dmap.size();
   Mat dmap_rgb = Mat(dmap_size, CV_8UC3 , Scalar(0));
+  cout << "\ndmap_size: " << dmap_size << endl; 
+  //Mat dmap_rgb;
   int channels_rgb = dmap.channels(); // should be asserted to one
   int dmap_rgb_rows = dmap_rgb.rows;
   int dmap_rgb_cols = dmap_rgb.cols * channels_rgb;
 
-  applyColorMap(dmap , dmap_rgb , COLORMAP_JET);
+  applyColorMap(dmap , dmap_rgb , COLORMAP_SUMMER);
 
   
 
@@ -495,9 +497,10 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
   {
       imshow("LEFT", img_left);
       imshow("RIGHT", img_right);
-      imshow("DISP", dmap);
+      //imshow("DISP", dmap);
       imshow("DISP_RGB" ,  dmap_rgb);
-  }
+      //cout << dmap_rgb << endl;
+   }
 
   waitKey(30);
 }

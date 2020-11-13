@@ -40,7 +40,7 @@ max_y: 480
 min_y: 50
 
 # disparity map generation method
-method: 1 # 0 for StereoBM, 1 for StereoSGBM
+method: 0 # 0 for StereoBM, 1 for StereoSGBM
 
 # conduct stereoRectify?
 conductStereoRectify: 0
