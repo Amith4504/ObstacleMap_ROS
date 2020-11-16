@@ -9,7 +9,7 @@ left_img_topic:  /csi/image_0
 right_img_topic:  /csi/image_1
 
 # Stereo calibration file name
-calib_file_name: calibration/cam_stereo_exrigid.yml
+calib_file_name: calibration/cam_stereo_mount_2.yml
 
 # Calibration image width and height
 calib_width: 1280 #752
@@ -40,21 +40,21 @@ max_y: 480
 min_y: 50
 
 # disparity map generation method
-method: 0 # 0 for StereoBM, 1 for StereoSGBM
+method: 1 # 0 for StereoBM, 1 for StereoSGBM
 
 # conduct stereoRectify?
 conductStereoRectify: 0
 
 # use WLS filter？
 UseWLSfilter: 1
-Lambda: 0 #0.4 #0
+Lambda: 0.5 #0.4 #0
 SigmaColor: 10 #10
 
 # common params for both methods:
 MinDisparity: 7
 NumDisparities: 32 #32
 PreFilterCap: 63
-UniquenessRatio: 50 #115
+UniquenessRatio: 50 #50 #115
 SpeckleWindowSize: 0 #0
 
 # for StereoBM (Block Matching) matcher params
@@ -67,8 +67,8 @@ TextureThreshold: 155
 # for StereoSGBM (Semi-Global Block Matching) matcher params
 P1: 700
 P2: 2800
-disp12MaxDiff: 20 #10
-speckleRange: 10 #3
+disp12MaxDiff: 10 #10
+speckleRange: 3 #3
 fullDP: 1 #0
 
 # useful param

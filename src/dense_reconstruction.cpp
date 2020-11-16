@@ -443,7 +443,8 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
           dmap = generateDisparityMapBM(img_left, img_right);
           float t_SBM2 = float(cv::getTickCount());
           float time = (t_SBM2 - t_SBM1) / cv::getTickFrequency(); 
-          printf("Disparity map generation using SBM took: %f" , time);
+          printf("Disparity map generation using SBM took:" );
+          cout << time << endl;
           break;
       }
 
@@ -453,7 +454,8 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
           dmap = generateDisparityMapSGBM(img_left, img_right);
           float t_SBM2 = float(cv::getTickCount());
           float time = (t_SBM2 - t_SBM1) / cv::getTickFrequency(); 
-          printf("Disparity map generation using SGBM took: %f" , time);
+          printf("Disparity map generation using SGBM took:");
+          cout << time << endl;
           break;
       }
 
