@@ -513,6 +513,9 @@ void findRectificationMap(Size finalSize) {
   Rect validRoi[2];
   cout << "Starting rectification" << endl;
   
+  //calibrated stereo rectify
+  //takes in left and right camera matrices , Rotation and translation matrices from extrinsic calibration and computes
+  // rectification , projection and disparity maps needed to extract depth from two stereo images.
   cv::stereoRectify(K1, D1, K2, D2, calib_img_size, R, Mat(T), R1, R2, P1, P2, Q,
           CV_CALIB_ZERO_DISPARITY, 0, finalSize, &validRoi[0], &validRoi[1]);
   
@@ -520,6 +523,8 @@ void findRectificationMap(Size finalSize) {
   cv::initUndistortRectifyMap(K2, D2, R2, P2, finalSize, CV_32F, rmapx, rmapy);
   
   cout << "Done rectification" << endl;
+  cout << "Reprojection Matrix :" << endl;
+  cout << Q << endl;
 }
 
 
