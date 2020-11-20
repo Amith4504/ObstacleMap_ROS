@@ -232,6 +232,12 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
 
         *cloudPTR = output_cloud;
 
+        if(cloudPTR->size() > 0){
+            cout << "output_cloud is not empty " << endl;
+        }else{
+            cout << "output_cloud is empty" << endl;
+        }
+
         cout<<"cloudPTR: "<<cloudPTR<<endl;
 
         auto result_cloud = mpPCL_helper->PCLStatisticalOutlierFilter(cloudPTR);
