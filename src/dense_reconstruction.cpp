@@ -4,8 +4,10 @@
 #include <message_filters/sync_policies/approximate_time.h>
 
 #include <sensor_msgs/PointCloud.h>
+#include <sensor_msgs/PointCloud2.h>
 #include <sensor_msgs/ChannelFloat32.h>
 #include <sensor_msgs/PointField.h>
+#include <sensor_msgs/point_cloud_conversion.h>
 #include <geometry_msgs/Point32.h>
 
 #include <image_transport/image_transport.h>
@@ -18,6 +20,7 @@
 #include <opencv2/calib3d/calib3d_c.h>
 #include "popt_pp.h"
 #include "pcl_helper.h"
+
 
 using namespace cv;
 using namespace std;
@@ -222,6 +225,7 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
         //conduct pointcloud filering provided by PCL
         pcl::PointCloud<pcl::PointXYZ> output_cloud;
 
+        cout << "ROS PointCloud2toPointCloudXYZ Conversion" << endl;
         mpPCL_helper->ROSPointCloud2toPointCloudXYZ(pc2, output_cloud);
 
         pcl::PointCloud<pcl::PointXYZ>::Ptr cloudPTR(new pcl::PointCloud<pcl::PointXYZ>);
@@ -234,12 +238,20 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
 
         cout<<"*result_cloud: "<<*result_cloud<<endl;
 
+        if(result_cloud->size() > 0){
+            cout << "result cloud is not empty " << endl;
+        }else{
+            cout << "result cloud is empty " << endl;
+        }
+
+        cout << "PointCloudXYZtoROSPointCloud2 :" << endl; 
         mpPCL_helper->PointCloudXYZtoROSPointCloud2(*result_cloud, pc2);
     }
 
     if(result)
     {
         // publish in format of sensor_msgs::pointcloud2
+        
         pcl_pub.publish(pc2);
 
         // publish in format of sensor_msgs::pointcloud

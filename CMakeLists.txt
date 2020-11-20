@@ -74,7 +74,9 @@ rosbuild_add_executable(dense_reconstruction
 target_link_libraries(dense_reconstruction
 		     ${OpenCV_LIBS}
 		     "-lpopt -lboost_system"
-		      pcl_helper)
+          pcl_helper)
+          
+target_link_libraries(dense_reconstruction ${PCL_LIBRARIEs})
 
 #rosbuild_add_executable(match_pointcloud_and_slam_pose
 #		src/match_pointcloud_and_slam_pose.cpp
