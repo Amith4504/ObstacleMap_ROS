@@ -254,6 +254,22 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
         mpPCL_helper->PointCloudXYZtoROSPointCloud2(*result_cloud, pc2);
     }
 
+    if(pc.points.size() > 0){
+        cout << "PC NOT EMPTY" << endl;
+    }else{
+        cout << "PC EMPTY" << endl;
+    }
+
+    if(pc2.data.size() > 0){
+        cout << "PC2 NOT EMPTY" << endl;
+    }else{
+        cout << "PC2 EMPTY" << endl;
+    }
+    
+
+ 
+
+
     if(result)
     {
         // publish in format of sensor_msgs::pointcloud2
