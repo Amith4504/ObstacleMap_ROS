@@ -207,6 +207,14 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
         }
     }
 
+    if(pc.points.size() > 0){
+        cout << "PC NOT EMPTY after loop" << endl;
+    }else{
+        cout << "PC EMPTY after loop " << endl;
+    }
+
+
+
     if (!dmap.empty())
     {
         sensor_msgs::ImagePtr disp_msg;
