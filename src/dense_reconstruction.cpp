@@ -596,9 +596,9 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
 
   cout<<"Publishing pointcloud, index: "<<log_index<<endl;
 
-  //publishPointCloud(img_left_color, dmap, stereo_pair_id);
+  publishPointCloud(img_left_color, dmap, stereo_pair_id);
 
-  publishPointCloud_new(img_left_color , dmap , stereo_pair_id);
+  //publishPointCloud_new(img_left_color , dmap , stereo_pair_id);
 
   //Convert to RGB from gray scale
   // Pseudo color depth map - nearest object RED , farthest blue
