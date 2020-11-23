@@ -123,7 +123,6 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
     //code block to find closest depth found
     // closest corresponds to max disparity
     
-
     for (int i = 0; i < img_left.cols; i++)
     {
         for (int j = 0; j < img_left.rows; j++)
@@ -275,9 +274,6 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
     }
     
 
- 
-
-
     if(result)
     {
         // publish in format of sensor_msgs::pointcloud2
@@ -289,6 +285,60 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
     }
     else
         cout<<"Converting points failed!"<<endl;
+}
+
+
+void publishPointCloud_new(Mat& img_left , Mat& dmap , int stereo_pair_id){
+
+    sensor_msgs::PointCloud pc;
+    pc.header.frame_id = "map";
+    pc.header.stamp = ros::Time::now();
+    cv::reprojectImageTo3D(dmap , pc.points , Q  , false);
+    
+    if(pc.points.size() > 0){
+        cout << "PC NOT EMPTY after loop" << endl;
+    }else{
+        cout << "PC EMPTY after loop " << endl;
+    }
+
+    if (!dmap.empty()){
+        sensor_msgs::ImagePtr disp_msg;
+        disp_msg = cv_bridge::CvImage(std_msgs::Header(), "mono8", dmap).toImageMsg();
+        dmap_pub.publish(disp_msg);
+    }
+
+    log_index++;
+
+    sensor_msgs::PointCloud2 pc2;
+
+    bool result = sensor_msgs::convertPointCloudToPointCloud2(pc, pc2);
+
+    //PCL Filtering
+    if(UsePCLfiltering){
+
+        //pcl point cloud filtering
+        pcl::PointCloud<pcl::PointXYZ> output_cloud;
+
+        mpPCL_helper->ROSPointCloud2toPointCloudXYZ(pc2 , output_cloud);
+
+        pcl::PointCloud<pcl::PointXYZ>::Ptr cloudPTR(new pcl::PointCloud<pcl::PointXYZ>);
+
+        *cloudPTR = output_cloud;
+
+        auto result_cloud = mpPCL_helper->PCLStatisticalOutlierFilter(cloudPTR);
+
+        mpPCL_helper->PointCloudXYZtoROSPointCloud2(*result_cloud , pc2);
+    }
+
+    if(result){
+        pcl_pub.publish(pc2);
+
+        navigator_pub.publish(pc);
+    }
+    else{
+        cout << "Converting points failed" << endl;
+    }
+    
 }
 
 
@@ -505,8 +555,9 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
 
   cout<<"Publishing pointcloud, index: "<<log_index<<endl;
 
-  publishPointCloud(img_left_color, dmap, stereo_pair_id);
+  //publishPointCloud(img_left_color, dmap, stereo_pair_id);
 
+  publishPointCloud_new(img_left_color , dmap , stereo_pair_id);
 
   //Convert to RGB from gray scale
   // Pseudo color depth map - nearest object RED , farthest blue
@@ -548,7 +599,6 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
 
   waitKey(30);
 }
-
 
 
 void findRectificationMap(Size finalSize) {
