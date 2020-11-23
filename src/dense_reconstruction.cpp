@@ -456,7 +456,7 @@ cv::Mat generateDisparityMapSGBM(Mat& left, Mat& right) {
     cv::Ptr<StereoSGBM> left_matcher = cv::StereoSGBM::create(MinDisparity,
             NumDisparities,
             SADWindowSize,
-            p1, p2,publishPointCloud
+            p1, p2,
             disp12MaxDiff,
             PreFilterCap,
             UniquenessRatio,
