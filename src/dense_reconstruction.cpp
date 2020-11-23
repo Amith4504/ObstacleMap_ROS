@@ -291,10 +291,17 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
 void publishPointCloud_new(Mat& img_left , Mat& dmap , int stereo_pair_id){
 
     sensor_msgs::PointCloud pc;
+    sensor_msgs::PointCloudPtr pc_ptr;
+
+    *pc_ptr = pc;
+
     pc.header.frame_id = "map";
     pc.header.stamp = ros::Time::now();
     cv::reprojectImageTo3D(dmap , pc.points , Q  , false);
-    
+
+    std::cerr << "Cloud after projecting" << endl;
+    std::cerr << *pc_ptr << endl;
+
     if(pc.points.size() > 0){
         cout << "PC NOT EMPTY after loop" << endl;
     }else{
@@ -310,8 +317,14 @@ void publishPointCloud_new(Mat& img_left , Mat& dmap , int stereo_pair_id){
     log_index++;
 
     sensor_msgs::PointCloud2 pc2;
+    sensor_msgs::PointCloud2Ptr pc2_ptr;
+
+    *pc2_ptr = pc2;
 
     bool result = sensor_msgs::convertPointCloudToPointCloud2(pc, pc2);
+
+    std::cerr << "Point Cloud 2 after conversion" << endl;
+    std::cerr << *pc2_ptr << endl;
 
     //PCL Filtering
     if(UsePCLfiltering){
@@ -443,7 +456,7 @@ cv::Mat generateDisparityMapSGBM(Mat& left, Mat& right) {
     cv::Ptr<StereoSGBM> left_matcher = cv::StereoSGBM::create(MinDisparity,
             NumDisparities,
             SADWindowSize,
-            p1, p2,
+            p1, p2,publishPointCloud
             disp12MaxDiff,
             PreFilterCap,
             UniquenessRatio,
