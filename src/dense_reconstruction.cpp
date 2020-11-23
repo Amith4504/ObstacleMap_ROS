@@ -297,7 +297,41 @@ void publishPointCloud_new(Mat& img_left , Mat& dmap , int stereo_pair_id){
 
     pc.header.frame_id = "map";
     pc.header.stamp = ros::Time::now();
-    cv::reprojectImageTo3D(dmap , pc.points , Q  , false);
+
+    cv::Mat output_3D;
+
+    cv::reprojectImageTo3D(dmap , output_3D , Q  , false);
+
+    //convert floating point 3 channel image to pointcloud points
+    pcl::PointCloud<pcl::PointXYZ>::Ptr pcl_pc_ptr(new pcl::PointCloud<pcl::PointXYZ>);
+
+    for(int rows = 0 ; rows < output_3D.rows ;  ++rows){
+
+            for(int cols = 0 ; cols < output_3D.cols ; ++cols){
+
+                cv::Point3f point = output_3D.at<cv::Point3f>(rows , cols);
+
+                pcl::PointXYZ pcl_point(point.x, point.y , point.z);
+
+                pcl_pc_ptr->push_back(pcl_point);
+            }
+    }
+
+    //convert pcl point cloud sensor_msgs::PointCloud
+    // *pcl_pc_ptr ----- > pc_ptr
+
+    sensor_msgs::PointCloud2 pc2;
+    sensor_msgs::PointCloud2Ptr pc2_ptr;
+
+    *pc2_ptr = pc2;
+
+    pcl::PCLPointCloud2 pcl_cloud;
+
+    //step 1. convert pcl_T to pcl_cloud2
+    pcl::toPCLPointCloud2(*pcl_pc_ptr, pcl_cloud);
+
+    //step 2. convert pcl_cloud2 pc to ROS pc
+    pcl_conversions::fromPCL(pcl_cloud, pc2);
 
     std::cerr << "Cloud after projecting" << endl;
     std::cerr << *pc_ptr << endl;
@@ -316,12 +350,7 @@ void publishPointCloud_new(Mat& img_left , Mat& dmap , int stereo_pair_id){
 
     log_index++;
 
-    sensor_msgs::PointCloud2 pc2;
-    sensor_msgs::PointCloud2Ptr pc2_ptr;
-
-    *pc2_ptr = pc2;
-
-    bool result = sensor_msgs::convertPointCloudToPointCloud2(pc, pc2);
+    bool result = sensor_msgs::convertPointCloud2ToPointCloud(pc2 , pc);
 
     std::cerr << "Point Cloud 2 after conversion" << endl;
     std::cerr << *pc2_ptr << endl;
@@ -436,7 +465,6 @@ cv::Mat generateDisparityMapBM(Mat& left, Mat& right) {
     }
 
 }
-
 
 // image should be rectified and aligned
 cv::Mat generateDisparityMapSGBM(Mat& left, Mat& right) {
