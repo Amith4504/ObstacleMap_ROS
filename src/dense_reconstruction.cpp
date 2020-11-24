@@ -132,7 +132,7 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
                 continue;
 
             int d = dmap.at<uchar>(j,i);
-//            cout<<"d: "<<d<<", "<<disparityMin<<", "<<disparityMax<<endl;
+            //cout<<"d: "<<d<<", "<<disparityMin<<", "<<disparityMax<<endl;
 
             if (d < disparityMin || d > disparityMax)
                 continue;
@@ -143,7 +143,7 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
             V.at<double>(1,0) = (double)(j);
             V.at<double>(2,0) = (double)d;
             V.at<double>(3,0) = 1.;
-
+            
             pos = Q * V; // 3D homogeneous coordinate
 
             double X = pos.at<double>(0,0) / pos.at<double>(3,0);
@@ -152,8 +152,8 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
             double X_,Y_,Z_;
 
 //            cout<<"z: "<<Z<<", "<<distanceMin<<", "<<distanceMax<<endl;
-            if (Z < distanceMin || Z > distanceMax)
-                continue;
+            //if (Z < distanceMin || Z > distanceMax)
+               // continue;
 
             bool REMAP_TO_FLU = true;
             if (REMAP_TO_FLU) //for mavros
@@ -206,8 +206,8 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
         }
     }
 
-    std::cerr << "PC debug :" << std::endl;
-    std::cerr << pc << endl;
+    //std::cerr << "PC debug :" << std::endl;
+    //std::cerr << pc << endl;
 
     if(pc.points.size() > 0){
         cout << "PC NOT EMPTY after loop" << endl;

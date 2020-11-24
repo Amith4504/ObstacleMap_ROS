@@ -6,5 +6,5 @@ CXX_FLAGS = -O2 -g -DNDEBUG -fPIC    -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexce
 
 CXX_DEFINES = -DGTEST_CREATE_SHARED_LIBRARY=1 -DROS_PACKAGE_NAME=\"Obstacle_Map\" -Dgtest_EXPORTS
 
-CXX_INCLUDES = -I/home/rangeaero/Documents/to_test/GAAS/software/Obstacle_Map/include -I/home/rangeaero/catkin_ws/src/vision_opencv/cv_bridge/include -I/opt/ros/melodic/include -I/usr/local/include/opencv4 -I/usr/src/googletest/googletest/include -I/usr/src/googletest/googletest 
+CXX_INCLUDES = -I/home/rangeaero/Documents/to_test/GAAS/software/Obstacle_Map/include -I/usr/src/googletest/googletest/include -I/usr/src/googletest/googletest 
 

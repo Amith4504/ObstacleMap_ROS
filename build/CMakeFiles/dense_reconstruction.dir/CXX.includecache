@@ -87,9 +87,13 @@ message_filters/sync_policies/approximate_time.h
 -
 sensor_msgs/PointCloud.h
 -
+sensor_msgs/PointCloud2.h
+-
 sensor_msgs/ChannelFloat32.h
 -
 sensor_msgs/PointField.h
+-
+sensor_msgs/point_cloud_conversion.h
 -
 geometry_msgs/Point32.h
 -

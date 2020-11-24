@@ -17,6 +17,7 @@ calib_height: 720 #480
 
 # Rectified image width and height
 out_width: 1280
+
 out_height: 720
 
 # Set d=1 for cam to robot frame calibration
@@ -26,8 +27,8 @@ debug: 0
 displayImage: 1
 
 # disparity maximum and minimum
-disparityMax: 30
-disparityMin: 2
+disparityMax: 200
+disparityMin: 50
 
 # maximum point distance (z)
 distanceMax: 10
