@@ -206,13 +206,14 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
         }
     }
 
+    std::cerr << "PC debug :" << std::endl;
+    std::cerr << pc << endl;
+
     if(pc.points.size() > 0){
         cout << "PC NOT EMPTY after loop" << endl;
     }else{
         cout << "PC EMPTY after loop " << endl;
     }
-
-
 
     if (!dmap.empty())
     {
