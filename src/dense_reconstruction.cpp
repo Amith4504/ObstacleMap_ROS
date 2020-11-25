@@ -557,6 +557,8 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
   {
       remap(tmpL, img_left, lmapx, lmapy, cv::INTER_LINEAR);
       remap(tmpR, img_right, rmapx, rmapy, cv::INTER_LINEAR);
+      cv::imshow("rectified left" , tmpL);
+      cv::imshow("rectified right" , tmpR);
   }
   else
   {
