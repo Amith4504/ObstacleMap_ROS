@@ -119,6 +119,7 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
     sensor_msgs::PointCloud pc;
     pc.header.frame_id = "map";
     pc.header.stamp = ros::Time::now();
+    Mat depth_Z;
 
     //code block to find closest depth found
     // closest corresponds to max disparity
@@ -196,6 +197,8 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
             pt.y = float(point3d_robot.at<double>(1,0) );
             pt.z = float(point3d_robot.at<double>(2,0) );
 
+            depth_Z.at<uchar>(i , j) = pt.z;
+
             pc.points.push_back(pt);
             int32_t red, blue, green;
             red = img_left.at<Vec3b>(j,i)[2];
@@ -215,6 +218,14 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
         cout << "PC EMPTY after loop " << endl;
     }
 
+    cout << "points vector size: " << pc.points.size() << std::endl;
+
+    imshow("Depth DATA Z" , depth_Z);
+
+    //extract depth data
+
+    
+    
     if (!dmap.empty())
     {
         sensor_msgs::ImagePtr disp_msg;
