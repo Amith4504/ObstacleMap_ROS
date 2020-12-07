@@ -518,6 +518,8 @@ cv::Mat generateDisparityMapSGBM(Mat& left, Mat& right) {
         conf_map = Scalar(255);
 
         conf_map = wls_filter->getConfidenceMap();
+        imshow("Confidence Map", conf_map);
+        
         cv::Rect ROI = wls_filter->getROI();
 
         //step 6, return value
@@ -557,8 +559,8 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
   {
       remap(tmpL, img_left, lmapx, lmapy, cv::INTER_LINEAR);
       remap(tmpR, img_right, rmapx, rmapy, cv::INTER_LINEAR);
-      cv::imshow("rectified left" , tmpL);
-      cv::imshow("rectified right" , tmpR);
+      cv::imshow("rectified left" , img_left);
+      cv::imshow("rectified right" , img_right);
   }
   else
   {
@@ -636,7 +638,7 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
   {
       imshow("LEFT", img_left);
       imshow("RIGHT", img_right);
-      //imshow("DISP", dmap);
+      imshow("DISP", dmap);
       imshow("DISP_RGB" ,  dmap_rgb);
       //cout << dmap_rgb << endl;
    }

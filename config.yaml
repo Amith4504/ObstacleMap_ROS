@@ -9,16 +9,16 @@ left_img_topic:  /csi/image_0
 right_img_topic:  /csi/image_1
 
 # Stereo calibration file name
-calib_file_name: calibration/cam_stereo_mount_2.yml
+calib_file_name: calibration/cam_stereo_mount_3.yml
 
 # Calibration image width and height
-calib_width: 1280 #752
-calib_height: 720 #480
+calib_width: 640 #752
+calib_height: 480 #480
 
 # Rectified image width and height
-out_width: 1280
+out_width: 640
 
-out_height: 720
+out_height: 480
 
 # Set d=1 for cam to robot frame calibration
 debug: 0
@@ -27,12 +27,12 @@ debug: 0
 displayImage: 1
 
 # disparity maximum and minimum
-disparityMax: 200
-disparityMin: 50
+disparityMax: 255
+disparityMin: 2
 
 # maximum point distance (z)
-distanceMax: 10
-distanceMin: 0.1
+distanceMax: 5
+distanceMin: 0.00
 
 # max/min x and y
 max_x: 650
@@ -44,19 +44,19 @@ min_y: 50
 method: 1 # 0 for StereoBM, 1 for StereoSGBM
 
 # conduct stereoRectify?
-conductStereoRectify: 0
+conductStereoRectify: 1
 
 # use WLS filter？
 UseWLSfilter: 1
 Lambda: 0.5 #0.4 #0
-SigmaColor: 10 #10
+SigmaColor: 1000 #10
 
 # common params for both methods:
 MinDisparity: 7
 NumDisparities: 32 #32
 PreFilterCap: 63
-UniquenessRatio: 50 #50 #115
-SpeckleWindowSize: 0 #0
+UniquenessRatio: 115 #50 #115
+SpeckleWindowSize: 10 #0
 
 # for StereoBM (Block Matching) matcher params
 RangeOfDisparity: 16 # dividable by 16
@@ -66,11 +66,11 @@ SmallerBlockSize: 7
 TextureThreshold: 155
 
 # for StereoSGBM (Semi-Global Block Matching) matcher params
-P1: 700
-P2: 2800
-disp12MaxDiff: 10 #10
+P1: 0 #700
+P2: 0 #2800
+disp12MaxDiff: 50 #10
 speckleRange: 3 #3
-fullDP: 1 #0
+fullDP: 0 #0
 
 # useful param
 UseRadiusOutlierRemoval: 1
