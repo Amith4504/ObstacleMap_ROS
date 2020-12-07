@@ -29,6 +29,8 @@ using namespace std;
 Mat XR, XT, Q, P1, P2,R_downward,T_downward;
 Mat R1, R2, K1, K2, D1, D2, R;
 Mat lmapx, lmapy, rmapx, rmapy;
+cv::Size size_depth = cv::Size(640, 480);
+Mat depth_Z(size_depth , 1 , CV_64FC1);
 Vec3d T;
 
 stereo_dense_reconstruction::CamToRobotCalibParamsConfig config;
@@ -119,7 +121,8 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
     sensor_msgs::PointCloud pc;
     pc.header.frame_id = "map";
     pc.header.stamp = ros::Time::now();
-    Mat depth_Z;
+    
+    cout << "initialized" << endl;
 
     //code block to find closest depth found
     // closest corresponds to max disparity
@@ -197,7 +200,7 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
             pt.y = float(point3d_robot.at<double>(1,0) );
             pt.z = float(point3d_robot.at<double>(2,0) );
 
-            depth_Z.at<uchar>(i , j) = pt.z;
+            depth_Z.at<float>(i , j) = pt.z;
 
             pc.points.push_back(pt);
             int32_t red, blue, green;
@@ -218,7 +221,7 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
         cout << "PC EMPTY after loop " << endl;
     }
 
-    cout << "points vector size: " << pc.points.size() << std::endl;
+    cout << "depth_Z sizze: " << depth_Z.size() << std::endl;
 
     imshow("Depth DATA Z" , depth_Z);
 
