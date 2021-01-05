@@ -136,6 +136,12 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
     double max_X = 0;
     double min_Y = 10000;
     double max_Y = 0;
+	
+    int window1 = 0;
+    int window2 = 0;
+    int window3 = 0;
+    int window4 = 0;
+    int window5 = 0; 
     
     for (int i = 0; i < img_left.cols; i++)
     {
@@ -197,9 +203,12 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
             if(Y < min_Y){
                 min_Y = Y;
             }
-            if(max_Y > Y){
+            if(Y > max_Y){
                 max_Y = Y;
             }
+
+            
+            
             //cout<<"xyz: "<<X<<Y<<Z<<endl;
             Mat point3d_cam = Mat(3, 1, CV_64FC1);
             point3d_cam.at<double>(0,0) = X;
@@ -222,6 +231,28 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
             {
                 point3d_robot = R_downward*point3d_cam+T_downward; //if type error,define Mat R = Mat(3, 3, CV_64FC1),T = Mat(3,1,CV_64FC1);
             }
+            
+   	// count the number of points in 3 windows
+    	// window1 - 0.24 -- 0.52
+    	// window2 - 0.52 -- 0.8
+   	 // window 3 - 0.8 -- 1.10
+		if(0.24 <= X && X < 0.41){
+		        window1++;		
+		}
+		else if(0.41 <= X && X < 0.58){
+			window2++;	
+		}
+		else if(0.58 <= X && X < 0.75){
+			window3++;
+		}
+		else if(0.75 <= X && X < 0.92){
+			window4++;
+		}
+                else if(0.92 <= X && X < 1.10){
+			window5++;
+		}
+
+
 
             points.push_back(Point3d(point3d_robot));
 
@@ -248,9 +279,17 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
     cout << "MAX_X :" << max_X << endl;
     cout << "MIN Y :" << min_Y<< endl;
     cout << "MAX_Y :" << max_Y << endl;
+    
+    cout << "Window 1 points :" << window1 << endl;
+    cout << "Window 2 points :" << window2 << endl;
+    cout << "Window 3 points :" << window3 << endl;
+    cout << "Window 4 points :" << window4 << endl;
+    cout << "Window 5 points :" << window5 << endl;
 
     //std::cerr << "PC debug :" << std::endl;
     //std::cerr << pc << endl;
+
+    
 
     if(pc.points.size() > 0){
         cout << "PC NOT EMPTY after loop" << endl;
