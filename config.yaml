@@ -9,7 +9,7 @@ left_img_topic:  /csi/image_0
 right_img_topic:  /csi/image_1
 
 # Stereo calibration file name
-calib_file_name: calibration/cam_stereo_mount_3.yml
+calib_file_name: calibration/cam_stereo_mount_4.yml
 
 # Calibration image width and height
 calib_width: 640 #752
@@ -31,14 +31,14 @@ disparityMax: 255
 disparityMin: 2
 
 # maximum point distance (z)
-distanceMax: 5
+distanceMax: 10
 distanceMin: 0.00
 
 # max/min x and y
-max_x: 650
-min_x: 102 
+max_x: 640
+min_x: 0 #102 
 max_y: 480
-min_y: 50
+min_y: 0 #50
 
 # disparity map generation method
 method: 1 # 0 for StereoBM, 1 for StereoSGBM
@@ -48,8 +48,8 @@ conductStereoRectify: 1
 
 # use WLS filter？
 UseWLSfilter: 1
-Lambda: 0.5 #0.4 #0
-SigmaColor: 1000 #10
+Lambda: 0.50 #0.4 #0
+SigmaColor: 500 #10
 
 # common params for both methods:
 MinDisparity: 7

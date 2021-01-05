@@ -200,7 +200,7 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
             pt.y = float(point3d_robot.at<double>(1,0) );
             pt.z = float(point3d_robot.at<double>(2,0) );
 
-            depth_Z.at<float>(i , j) = pt.z;
+            depth_Z.at<float>(j , i) = pt.z;
 
             pc.points.push_back(pt);
             int32_t red, blue, green;
@@ -532,7 +532,7 @@ cv::Mat generateDisparityMapSGBM(Mat& left, Mat& right) {
         conf_map = Scalar(255);
 
         conf_map = wls_filter->getConfidenceMap();
-        imshow("Confidence Map", conf_map);
+        //imshow("Confidence Map", conf_map);
         
         cv::Rect ROI = wls_filter->getROI();
 
@@ -650,8 +650,8 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
 
   if(displayImage)
   {
-      imshow("LEFT", img_left);
-      imshow("RIGHT", img_right);
+      //imshow("LEFT", img_left);
+      //imshow("RIGHT", img_right);
       imshow("DISP", dmap);
       imshow("DISP_RGB" ,  dmap_rgb);
       //cout << dmap_rgb << endl;
