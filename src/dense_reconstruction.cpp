@@ -130,8 +130,12 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
 
     //code block to find closest depth found
     // closest corresponds to max disparity
-    double min_Z = 0;
+    double min_Z = 10000;
     double max_Z = 0;
+    double min_X = 10000;
+    double max_X = 0;
+    double min_Y = 10000;
+    double max_Y = 0;
     
     for (int i = 0; i < img_left.cols; i++)
     {
@@ -176,11 +180,25 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
                 Z = Z_;
             }
             
-            if(min_Z < Z){
+            if(Z < min_Z){
                 min_Z = Z;
             }
             if(Z > max_Z){
                 max_Z = Z;
+            }
+
+            if(X < min_X){
+                min_X = X;
+            }
+            if(X > max_X){
+                max_X = X;
+            }
+
+            if(Y < min_Y){
+                min_Y = Y;
+            }
+            if(max_Y > Y){
+                max_Y = Y;
             }
             //cout<<"xyz: "<<X<<Y<<Z<<endl;
             Mat point3d_cam = Mat(3, 1, CV_64FC1);
@@ -226,6 +244,10 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
 
     cout << "MIN Z :" << min_Z << endl;
     cout << "MAX_Z :" << max_Z << endl;
+    cout << "MIN X :" << min_X << endl;
+    cout << "MAX_X :" << max_X << endl;
+    cout << "MIN Y :" << min_Y<< endl;
+    cout << "MAX_Y :" << max_Y << endl;
 
     //std::cerr << "PC debug :" << std::endl;
     //std::cerr << pc << endl;
