@@ -79,6 +79,7 @@ MinNeighbor: 100
 
 # use PCL filtering? be carefull with this option!
 UsePCLfiltering: 0
+detectObstacles: 0
 UseStatisticalOutlierRemoval: 0
 mean_k: 50
 stdThres: 1

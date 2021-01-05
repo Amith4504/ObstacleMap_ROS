@@ -47,6 +47,7 @@ ros::Publisher pcl_pub, navigator_pub;
 size_t log_index = -1;
 
 int UsePCLfiltering = 0;
+int detectObstacles = 0;
 
 int RangeOfDisparity, SizeOfBlockWindow, PreFilterSize, PreFilterCap, SmallerBlockSize, MinDisparity, NumDisparities;
 int TextureThreshold, UniquenessRatio, SpeckleWindowSize, Lambda, SigmaColor;
@@ -54,6 +55,9 @@ int bUseWLSfilter, displayImage, disparityMax, disparityMin;
 int method, p1, p2, disp12MaxDiff, speckleRange, fullDP, SADWindowSize;
 float distanceMax, distanceMin;
 int conductStereoRectify, max_x, min_x, max_y, min_y;
+
+// Obstacles assertion using point cloud data
+bool Near , Middle , Far ;
 
 pcl_helper* mpPCL_helper;
 
@@ -126,6 +130,8 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
 
     //code block to find closest depth found
     // closest corresponds to max disparity
+    double min_Z = 0;
+    double max_Z = 0;
     
     for (int i = 0; i < img_left.cols; i++)
     {
@@ -169,7 +175,13 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
                 Y = Y_;
                 Z = Z_;
             }
-
+            
+            if(min_Z < Z){
+                min_Z = Z;
+            }
+            if(Z > max_Z){
+                max_Z = Z;
+            }
             //cout<<"xyz: "<<X<<Y<<Z<<endl;
             Mat point3d_cam = Mat(3, 1, CV_64FC1);
             point3d_cam.at<double>(0,0) = X;
@@ -212,6 +224,9 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
         }
     }
 
+    cout << "MIN Z :" << min_Z << endl;
+    cout << "MAX_Z :" << max_Z << endl;
+
     //std::cerr << "PC debug :" << std::endl;
     //std::cerr << pc << endl;
 
@@ -221,7 +236,7 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
         cout << "PC EMPTY after loop " << endl;
     }
 
-    cout << "depth_Z sizze: " << depth_Z.size() << std::endl;
+    cout << "depth_Z size : " << depth_Z.size() << std::endl;
 
     imshow("Depth DATA Z" , depth_Z);
 
@@ -288,6 +303,16 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
         cout << "PC2 EMPTY" << endl;
     }
     
+    // Obstacle detection Sensor feature here
+    if(detectObstacles){
+        //dividing point cloud into window blocks seperated in Z axis 
+        
+        //Computing density / number of points in each window
+
+        // if density > threshold in a particular window set bool values
+
+
+    }
 
     if(result)
     {
@@ -710,6 +735,7 @@ int main(int argc, char** argv) {
     string right_img_topic = string(fsSettings["right_img_topic"]);
     string calib_file_name = string(fsSettings["calib_file_name"]);
     UsePCLfiltering = fsSettings["UsePCLfiltering"];
+    detectObstacles = fsSettings["detectObstacles"];
     disparityMax = fsSettings["disparityMax"];
     disparityMin = fsSettings["disparityMin"];
     distanceMax = fsSettings["distanceMax"];
@@ -776,6 +802,7 @@ int main(int argc, char** argv) {
 
     cout<<"Lambda: "<<Lambda<<endl;
     cout<<"SigmaColor: "<<SigmaColor<<endl;
+    cout << "Detect Obstacle " << detectObstacles << endl;
 
     cout<<"displayImage: "<<displayImage<<endl;
     //cout<<"-----------------------------------"<<endl;
