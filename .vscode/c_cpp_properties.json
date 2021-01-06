@@ -15,6 +15,7 @@
                 "/home/amith/catkin_ws/src/offb/include/**",
                 "/home/amith/catkin_ws/src/mavros/test_mavros/include/**",
                 "/usr/include/**",
+                "/usr/local/include/**",
                 "${workspaceFolder}/include/**",
                 "${workspaceFolder}/cfg/**"
             ],

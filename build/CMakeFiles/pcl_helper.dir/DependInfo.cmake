@@ -41,9 +41,8 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../include"
-  "/home/rangeaero/catkin_ws/src/vision_opencv/cv_bridge/include"
   "/opt/ros/melodic/include"
-  "/usr/local/include/opencv4"
+  "/usr/include/opencv"
   "../cfg/cpp"
   "/usr/include/vtk-6.3"
   "/usr/include/freetype2"
@@ -57,6 +56,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/include/libxml2"
   "/usr/include/jsoncpp"
   "/usr/include/tcl"
+  "/usr/local/include/opencv4"
   ".././include"
   "/usr/include/pcl-1.8"
   "/usr/include/eigen3"

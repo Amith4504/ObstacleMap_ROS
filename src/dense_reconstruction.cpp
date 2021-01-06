@@ -21,6 +21,7 @@
 #include "popt_pp.h"
 #include "pcl_helper.h"
 
+#include <JetsonGPIO.h>
 
 using namespace cv;
 using namespace std;
@@ -288,6 +289,7 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
 
     //std::cerr << "PC debug :" << std::endl;
     //std::cerr << pc << endl;
+   
 
     
 
@@ -689,7 +691,11 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
       case 1:
       {
           float t_SBM1 = float(cv::getTickCount());
+           GPIO::setmode(GPIO::BOARD);
+           GPIO::setup(11 , GPIO::OUT);
+           GPIO::output(11 , GPIO::HIGH);
           dmap = generateDisparityMapSGBM(img_left, img_right);
+           GPIO::output(11 , GPIO::LOW);
           float t_SBM2 = float(cv::getTickCount());
           float time = (t_SBM2 - t_SBM1) / cv::getTickFrequency(); 
           printf("Disparity map generation using SGBM took:");
@@ -919,8 +925,10 @@ int main(int argc, char** argv) {
     message_filters::Synchronizer<SyncPolicy> sync(SyncPolicy(10), sub_img_left, sub_img_right);
 
     printf("Image Callback calling \n");
-    sync.registerCallback(boost::bind(&imgCallback, _1, _2,image_id));
 
+
+    sync.registerCallback(boost::bind(&imgCallback, _1, _2,image_id));
+    
     printf("Image Callback called \n");
 
     //NOTE downward stereo pair.

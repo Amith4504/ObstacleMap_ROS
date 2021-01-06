@@ -67,13 +67,14 @@ target_link_libraries(pcl_helper
 		     ${PCL_LIBRARIES})
 
 
+
 rosbuild_add_executable(dense_reconstruction
   src/dense_reconstruction.cpp
 )
 
 target_link_libraries(dense_reconstruction
 		     ${OpenCV_LIBS}
-		     "-lpopt -lboost_system"
+		     "-lpopt -lboost_system -lJetsonGPIO"
           pcl_helper)
           
 target_link_libraries(dense_reconstruction ${PCL_LIBRARIEs})

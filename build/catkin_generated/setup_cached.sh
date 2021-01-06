@@ -8,5 +8,5 @@
 
 # modified environment variables
 export CMAKE_PREFIX_PATH="/home/rangeaero/Documents/to_test/GAAS/software/Obstacle_Map/build/devel:$CMAKE_PREFIX_PATH"
-export ROSLISP_PACKAGE_DIRECTORIES="/home/rangeaero/Documents/to_test/GAAS/software/Obstacle_Map/build/devel/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
-export ROS_PACKAGE_PATH='/home/rangeaero/Documents/to_test/GAAS/software/Obstacle_Map:/home/rangeaero/catkin_ws/src:/opt/ros/melodic/share'
+export ROSLISP_PACKAGE_DIRECTORIES='/home/rangeaero/Documents/to_test/GAAS/software/Obstacle_Map/build/devel/share/common-lisp'
+export ROS_PACKAGE_PATH='/home/rangeaero/Documents/to_test/GAAS/software/Obstacle_Map:/opt/ros/melodic/share'
