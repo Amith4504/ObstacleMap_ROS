@@ -287,6 +287,11 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
     cout << "Window 4 points :" << window4 << endl;
     cout << "Window 5 points :" << window5 << endl;
 
+    if(window1 > 100000){
+	//Obstacle ahead
+	GPIO::output(12 , GPIO::HIGH);
+    }
+
     //std::cerr << "PC debug :" << std::endl;
     //std::cerr << pc << endl;
    
