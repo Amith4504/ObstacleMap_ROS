@@ -233,10 +233,10 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
                 point3d_robot = R_downward*point3d_cam+T_downward; //if type error,define Mat R = Mat(3, 3, CV_64FC1),T = Mat(3,1,CV_64FC1);
             }
             
-   	// count the number of points in 3 windows
+     	// count the number of points in 3 windows
     	// window1 - 0.24 -- 0.52
     	// window2 - 0.52 -- 0.8
-   	 // window 3 - 0.8 -- 1.10
+   	    // window 3 - 0.8 -- 1.10
 		if(0.24 <= X && X < 0.41){
 		        window1++;		
 		}
@@ -290,6 +290,11 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
     if(window1 > 100000){
 	//Obstacle ahead
 	GPIO::output(12 , GPIO::HIGH);
+    GPIO::output(11 , GPIO::LOW);
+    }
+    else if(window1 < 100000){
+        // No obstacle
+        GPIO::output(12 , GPIO::LOW);
     }
 
     //std::cerr << "PC debug :" << std::endl;
@@ -696,11 +701,7 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
       case 1:
       {
           float t_SBM1 = float(cv::getTickCount());
-           GPIO::setmode(GPIO::BOARD);
-           GPIO::setup(11 , GPIO::OUT);
-           GPIO::output(11 , GPIO::HIGH);
           dmap = generateDisparityMapSGBM(img_left, img_right);
-           GPIO::output(11 , GPIO::LOW);
           float t_SBM2 = float(cv::getTickCount());
           float time = (t_SBM2 - t_SBM1) / cv::getTickFrequency(); 
           printf("Disparity map generation using SGBM took:");
@@ -790,6 +791,9 @@ int main(int argc, char** argv) {
         cout<<"YOU NEED TO SPECIFY CONFIG PATH!"<<endl;
         return 0;
     }
+
+    GPIO::setmode(GPIO::BOARD);
+    GPIO::setup(11 , GPIO::OUT);
 
     string config_path = argv[1];
     string configFile(config_path);
