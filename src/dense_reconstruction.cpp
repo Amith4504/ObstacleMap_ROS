@@ -287,15 +287,7 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
     cout << "Window 4 points :" << window4 << endl;
     cout << "Window 5 points :" << window5 << endl;
 
-    if(window1 > 100000){
-	//Obstacle ahead
-	GPIO::output(12 , GPIO::HIGH);
-    GPIO::output(11 , GPIO::LOW);
-    }
-    else if(window1 < 100000){
-        // No obstacle
-        GPIO::output(12 , GPIO::LOW);
-    }
+
 
     //std::cerr << "PC debug :" << std::endl;
     //std::cerr << pc << endl;
@@ -383,9 +375,24 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
         //Computing density / number of points in each window
 
         // if density > threshold in a particular window set bool values
-
-
+            if(window1 > 100000){
+        	//Obstacle ahead
+         	GPIO::output(12 , GPIO::HIGH); //immediate
+            GPIO::output(11 , GPIO::LOW); // far
+            }
+            else if(window1 < 100000){
+             // No obstacle
+            GPIO::output(12 , GPIO::LOW); // immediate
+            }
+            else if(window3 > 7000){
+                GPIO::output(11 , GPIO::HIGH);
+            }
+            else{
+                GPIO::output(12 , GPIO::LOW);
+                GPIO::output(11 , GPIO::LOW);
+            }
     }
+
 
     if(result)
     {
@@ -793,7 +800,8 @@ int main(int argc, char** argv) {
     }
 
     GPIO::setmode(GPIO::BOARD);
-    GPIO::setup(11 , GPIO::OUT);
+    GPIO::setup(11 , GPIO::OUT);  // 
+    GPIO::setup(12  , GPIO::OUT); //
 
     string config_path = argv[1];
     string configFile(config_path);
