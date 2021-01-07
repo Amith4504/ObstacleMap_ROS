@@ -375,14 +375,17 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
         //Computing density / number of points in each window
 
         // if density > threshold in a particular window set bool values
-            if(window1 > 100000){
+            if(window1 > 45000){
         	//Obstacle ahead
          	GPIO::output(12 , GPIO::HIGH); //immediate
             GPIO::output(11 , GPIO::LOW); // far
+            cout << "\n\n #####  IMMEDIATE OBSTACLE AHEAD ######### \n\n"  << endl;
             }
-            else if(window1 < 100000){
+            else if(window1 < 45000){
              // No obstacle
             GPIO::output(12 , GPIO::LOW); // immediate
+
+            cout << "\n\n #####  NO IMMEDIATE OBSTACLE AHEAD ######### \n\n"  << endl;
             }
             else if(window3 > 7000){
                 GPIO::output(11 , GPIO::HIGH);
@@ -390,6 +393,7 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
             else{
                 GPIO::output(12 , GPIO::LOW);
                 GPIO::output(11 , GPIO::LOW);
+                    cout << "\n\n in else \n\n" << endl;
             }
     }
 
