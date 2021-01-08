@@ -380,12 +380,14 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
          	GPIO::output(12 , GPIO::HIGH); //immediate
             GPIO::output(11 , GPIO::LOW); // far
             cout << "\n\n #####  IMMEDIATE OBSTACLE AHEAD ######### \n\n"  << endl;
+            Logger("Obstacle between 0.5m - 1m");
             }
             else if(window1 < 45000){
              // No obstacle
             GPIO::output(12 , GPIO::LOW); // immediate
 
             cout << "\n\n #####  NO IMMEDIATE OBSTACLE AHEAD ######### \n\n"  << endl;
+            Logger("No obstacle between 0.5m - 1m");
             }
             else if(window3 > 7000){
                 GPIO::output(11 , GPIO::HIGH);
@@ -395,6 +397,12 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
                 GPIO::output(11 , GPIO::LOW);
                     cout << "\n\n in else \n\n" << endl;
             }
+
+            //start logging
+            
+
+
+
     }
 
 
@@ -409,6 +417,40 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
     }
     else
         cout<<"Converting points failed!"<<endl;
+
+
+
+}
+
+inline string getCurrentDateTime(string s){
+    time_t now = time(0);
+    struct tm  tstruct;
+    char  buf[80];
+    tstruct = *localtime(&now);
+    if(s=="now")
+        strftime(buf, sizeof(buf), "%Y-%m-%d %X", &tstruct);
+    else if(s=="date")
+        strftime(buf, sizeof(buf), "%Y-%m-%d", &tstruct);
+    return string(buf);
+};
+
+
+inline void Logger( string logMsg ){
+
+    string filePath = "/log_"+getCurrentDateTime("date")+".txt";
+    string now = getCurrentDateTime("now");
+    ofstream ofs(filePath.c_str(), std::ios_base::out | std::ios_base::app );
+    ofs << now << '\t' << logMsg << '\n';
+    ofs.close();
+}
+
+
+inline void Logger_bin(string logMsg){
+
+        string filepath = "/log_"+getCurrentDateTime("data")+"_0.5_1_"+".txt";
+        ofstream ofs(filepath.c_str() , std::ios_base::out | std::ios_base::app);
+        ofs << now << '\t' << logMsg << '\n';
+        ofs.close();
 }
 
 
