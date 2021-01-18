@@ -103,6 +103,43 @@ Mat composeTranslationCamToRobot(float x, float y, float z) {
     return (Mat_<double>(3,1) << x, y, z);
 }
 
+void construct_OctTree(sensor_msgs::PointCloud2& pc2){
+    // Routine to construct Octree , calculate density and provide obstacle data
+    pcl::PointCloud<pcl::PointXYZ>::Ptr pcl_pc (new pcl::PointCloud<pcl::PointXYZ>);
+
+    //convert from ROS point cloud to PCL point cloud
+    pcl::fromROSMsg(pc2 , *pcl_pc);
+
+    float resolution = 120.0f;
+    pcl::octree::OctreePointCloudSearch<pcl::PointXYZ> octree (resolution);
+
+    octree.setInputCloud(pcl_pc);
+    octree.addPointsFromInputCloud();
+
+    // give a set of search points
+    // search method -> neighbours within voxel / K nearest neighbours / point within radius
+    pcl::PointXYZ searchPoint;
+    searchPoint.x  = 1024.0f * rand() / (RAND_MAX + 1.0f);
+    searchPoint.y  = 1024.0f * rand() / (RAND_MAX + 1.0f);
+    searchPoint.z  = 1024.0f * rand() / (RAND_MAX + 1.0f);
+
+    std::vector<int> pointIdxVec;
+
+    if(octree.voxelSearch(searchPoint , pointIdxVec)){
+        std::cout << "Neighbours within voxel search at(" << searchPoint.x 
+        << " " << searchPoint.y 
+        << " " << searchPoint.z << ")"
+        << std::endl;
+
+        for(std::size_t i = 0 ; i < pointIdxVec.size() ; i++){
+            std::cout << "  " << (*cloud)[pointIdxVec[i]].x
+            << "  " << (*cloud)[pointIdxVec[i]].y
+            << "  " << (*cloud)[pointIdxVec[i]].z <<
+            std::endl;
+        }
+    }
+
+}
 
 void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
   
@@ -237,24 +274,22 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
     	// window1 - 0.24 -- 0.52
     	// window2 - 0.52 -- 0.8
    	    // window 3 - 0.8 -- 1.10
-		if(0.24 <= X && X < 0.41){
-		        window1++;		
-		}
-		else if(0.41 <= X && X < 0.58){
-			window2++;	
-		}
-		else if(0.58 <= X && X < 0.75){
-			window3++;
-		}
-		else if(0.75 <= X && X < 0.92){
-			window4++;
-		}
-                else if(0.92 <= X && X < 1.10){
-			window5++;
-		}
-
-
-
+            if(0.24 <= X && X < 0.41){
+                    window1++;		
+            }
+            else if(0.41 <= X && X < 0.58){
+                window2++;	
+            }
+            else if(0.58 <= X && X < 0.75){
+                window3++;
+            }
+            else if(0.75 <= X && X < 0.92){
+                window4++;
+            }
+                    else if(0.92 <= X && X < 1.10){
+                window5++;
+            }
+            
             points.push_back(Point3d(point3d_robot));
 
             geometry_msgs::Point32 pt;
@@ -274,12 +309,12 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
         }
     }
 
-    cout << "MIN Z :" << min_Z << endl;
-    cout << "MAX_Z :" << max_Z << endl;
-    cout << "MIN X :" << min_X << endl;
-    cout << "MAX_X :" << max_X << endl;
-    cout << "MIN Y :" << min_Y<< endl;
-    cout << "MAX_Y :" << max_Y << endl;
+    // cout << "MIN Z :" << min_Z << endl;
+    // cout << "MAX_Z :" << max_Z << endl;
+    // cout << "MIN X :" << min_X << endl;
+    // cout << "MAX_X :" << max_X << endl;
+    // cout << "MIN Y :" << min_Y<< endl;
+    // cout << "MAX_Y :" << max_Y << endl;
     
     cout << "Window 1 points :" << window1 << endl;
     cout << "Window 2 points :" << window2 << endl;
@@ -289,26 +324,6 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
 
 
 
-    //std::cerr << "PC debug :" << std::endl;
-    //std::cerr << pc << endl;
-   
-
-    
-
-    if(pc.points.size() > 0){
-        cout << "PC NOT EMPTY after loop" << endl;
-    }else{
-        cout << "PC EMPTY after loop " << endl;
-    }
-
-    cout << "depth_Z size : " << depth_Z.size() << std::endl;
-
-    imshow("Depth DATA Z" , depth_Z);
-
-    //extract depth data
-
-    
-    
     if (!dmap.empty())
     {
         sensor_msgs::ImagePtr disp_msg;
@@ -334,39 +349,41 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
 
         *cloudPTR = output_cloud;
 
-        if(cloudPTR->size() > 0){
-            cout << "output_cloud is not empty " << endl;
-        }else{
-            cout << "output_cloud is empty" << endl;
-        }
+        // if(cloudPTR->size() > 0){
+        //     cout << "output_cloud is not empty " << endl;
+        // }else{
+        //     cout << "output_cloud is empty" << endl;
+        // }
 
-        cout<<"cloudPTR: "<<cloudPTR<<endl;
+        //cout<<"cloudPTR: "<<cloudPTR<<endl;
 
         auto result_cloud = mpPCL_helper->PCLStatisticalOutlierFilter(cloudPTR);
 
-        cout<<"*result_cloud: "<<*result_cloud<<endl;
+        //cout<<"*result_cloud: "<<*result_cloud<<endl;
 
-        if(result_cloud->size() > 0){
-            cout << "result cloud is not empty " << endl;
-        }else{
-            cout << "result cloud is empty " << endl;
-        }
+        // if(result_cloud->size() > 0){
+        //     cout << "result cloud is not empty " << endl;
+        // }else{
+        //     cout << "result cloud is empty " << endl;
+        // }
 
         cout << "PointCloudXYZtoROSPointCloud2 :" << endl; 
         mpPCL_helper->PointCloudXYZtoROSPointCloud2(*result_cloud, pc2);
     }
 
-    if(pc.points.size() > 0){
-        cout << "PC NOT EMPTY" << endl;
-    }else{
-        cout << "PC EMPTY" << endl;
-    }
+    construct_OctTree(pc2);
 
-    if(pc2.data.size() > 0){
-        cout << "PC2 NOT EMPTY" << endl;
-    }else{
-        cout << "PC2 EMPTY" << endl;
-    }
+    // if(pc.points.size() > 0){
+    //     cout << "PC NOT EMPTY" << endl;
+    // }else{
+    //     cout << "PC EMPTY" << endl;
+    // }
+
+    // if(pc2.data.size() > 0){
+    //     cout << "PC2 NOT EMPTY" << endl;
+    // }else{
+    //     cout << "PC2 EMPTY" << endl;
+    // }
     
     // Obstacle detection Sensor feature here
     if(detectObstacles){
@@ -399,10 +416,6 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
             }
 
             //start logging
-            
-
-
-
     }
 
 

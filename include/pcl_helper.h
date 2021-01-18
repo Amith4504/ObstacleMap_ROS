@@ -23,6 +23,8 @@
 
 #include <pcl_conversions/pcl_conversions.h>
 
+#include <pcl/octree/octree_search.h>
+
 #include <sensor_msgs/ChannelFloat32.h>
 #include <sensor_msgs/PointField.h>
 #include <geometry_msgs/Point32.h>
