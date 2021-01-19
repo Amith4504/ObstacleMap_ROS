@@ -125,19 +125,19 @@ void construct_OctTree(sensor_msgs::PointCloud2& pc2){
 
     std::vector<int> pointIdxVec;
 
-    if(octree.voxelSearch(searchPoint , pointIdxVec)){ // returns a set of point indices
-        std::cout << "Neighbours within voxel search at(" << searchPoint.x 
-        << " " << searchPoint.y 
-        << " " << searchPoint.z << ")"
-        << std::endl;
+    // if(octree.voxelSearch(searchPoint , pointIdxVec)){ // returns a set of point indices
+    //     std::cout << "Neighbours within voxel search at(" << searchPoint.x 
+    //     << " " << searchPoint.y 
+    //     << " " << searchPoint.z << ")"
+    //     << std::endl;
 
-        for(std::size_t i = 0 ; i < pointIdxVec.size() ; i++){
-            std::cout << "  " << (*pcl_pc)[pointIdxVec[i]].x
-            << "  " << (*pcl_pc)[pointIdxVec[i]].y
-            << "  " << (*pcl_pc)[pointIdxVec[i]].z <<
-            std::endl;
-        }
-    }
+    //     for(std::size_t i = 0 ; i < pointIdxVec.size() ; i++){
+    //         std::cout << "  " << (*pcl_pc)[pointIdxVec[i]].x
+    //         << "  " << (*pcl_pc)[pointIdxVec[i]].y
+    //         << "  " << (*pcl_pc)[pointIdxVec[i]].z <<
+    //         std::endl;
+    //     }
+    // }
 
 
     // evenly set search points , 
