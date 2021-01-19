@@ -116,16 +116,37 @@ void construct_OctTree(sensor_msgs::PointCloud2& pc2){
     octree.setInputCloud(pcl_pc);
     octree.addPointsFromInputCloud();
 
-    // give a set of search points
-    // search method -> neighbours within voxel / K nearest neighbours / point within radius
-    pcl::PointXYZ searchPoint;
-    searchPoint.x  = 1024.0f * rand() / (RAND_MAX + 1.0f);
-    searchPoint.y  = 1024.0f * rand() / (RAND_MAX + 1.0f);
-    searchPoint.z  = 1024.0f * rand() / (RAND_MAX + 1.0f);
-
     std::vector<int> pointIdxVec;
 
-    // if(octree.voxelSearch(searchPoint , pointIdxVec)){ // returns a set of point indices
+    // evenly set search points , 
+    // density is given by length of pointIdxVec
+
+    // Search point vector
+    std::vector<pcl::PointXYZ> searchPoint_vector;
+    //set search points
+    double min_x = 0.242;
+    double max_x = 1.10264;
+    double min_y = 0.00281 ;
+    double max_y = 0.69;
+    double min_z = -0.1487 ;
+    double max_z = 0.3046;
+
+
+    for(double x = min_x ; x <=max_x ; x = x+ 0.07172){
+        for(double y = min_y ; y<= max_y ; y = y + 0.11453){
+            for(double z = min_z ; z <= max_z ; z = z+0.09055){
+                pcl::PointXYZ searchPoint;
+                searchPoint.x = x;
+                searchPoint.y = y;
+                searchPoint.z = z;
+                searchPoint_vector.push_back(searchPoint);
+                std::cout << "Search Point at :" << searchPoint.x << searchPoint.y << searchPoint.z << std::endl;
+            }
+        }
+    }
+
+
+     // if(octree.voxelSearch(searchPoint , pointIdxVec)){ // returns a set of point indices
     //     std::cout << "Neighbours within voxel search at(" << searchPoint.x 
     //     << " " << searchPoint.y 
     //     << " " << searchPoint.z << ")"
@@ -138,17 +159,6 @@ void construct_OctTree(sensor_msgs::PointCloud2& pc2){
     //         std::endl;
     //     }
     // }
-
-
-    // evenly set search points , 
-    // density is given by length of pointIdxVec
-
-    // Search point vector
-    std::vector<pcl::PointXYZ> searchPoint_vector;
-    //set search points
-
-
-
 }
 
 inline string getCurrentDateTime(string s){
