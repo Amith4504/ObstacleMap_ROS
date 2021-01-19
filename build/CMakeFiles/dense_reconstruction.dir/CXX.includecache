@@ -51,6 +51,8 @@ sensor_msgs/point_cloud_conversion.h
 -
 pcl_conversions/pcl_conversions.h
 -
+pcl/octree/octree_search.h
+-
 sensor_msgs/ChannelFloat32.h
 -
 sensor_msgs/PointField.h

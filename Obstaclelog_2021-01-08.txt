@@ -1,0 +1,220 @@
+2021-01-08 12:49:48  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:49:49  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:49:50  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:49:51  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:49:52  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:49:53  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:49:54  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:49:55  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:49:56  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:49:57  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:49:58  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:49:59  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:00  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:01  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:02  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:03  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:04  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:05  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:06  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:07  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:08  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:09  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:10  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:11  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:12  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:13  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:14  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:15  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:16  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:17  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:18  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:19  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:20  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:21  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:22  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:22  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:23  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:24  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:25  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:26  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:27  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:28  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:29  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:30  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:31  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:32  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:33  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:34  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:35  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:36  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:37  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:38  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:39  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:40  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:41  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:42  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:43  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:44  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:44  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:45  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:46  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:47  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:48  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:49  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:50  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:51  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:52  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:53  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:54  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:55  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:56  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:57  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:58  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:50:59  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:00  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:01  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:02  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:03  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:04  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:05  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:06  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:07  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:08  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:09  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:10  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:10  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:11  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:12  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:13  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:14  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:15  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:16  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:17  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:18  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:19  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:20  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:21  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:22  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:23  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:24  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:25  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:26  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:27  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:28  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:29  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:30  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:31  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:32  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:51:33  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:34  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:34  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:35  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:36  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:37  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:38  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:39  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:40  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:41  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:42  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:43  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:44  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:45  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:46  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:47  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:48  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:49  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:50  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:51  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:52  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:53  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:53  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:54  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:55  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:56  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:57  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:58  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:51:59  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:00  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:01  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:02  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:03  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:04  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:05  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:05  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:06  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:07  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:08  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:09  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:10  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:11  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:12  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:13  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:13  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:14  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:15  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:16  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:17  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:18  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:19  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:20  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:21  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:22  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:23  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:24  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:25  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:26  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:27  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:28  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:29  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:30  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:31  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:32  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:33  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:34  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:35  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:36  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:37  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:38  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:39  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:40  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:41  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:41  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:42  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:44  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:45  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:45  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:46  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:47  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:48  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:49  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:50  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:51  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:52  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:52:53  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:54  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:55  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:56  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:57  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:58  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:52:59  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:00  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:01  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:02  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:03  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:04  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:05  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:06  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:07  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:08  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:09  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:10  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:11  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:12  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:13  IST	Obstacle between 0.5m - 1m
+2021-01-08 12:53:14  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:14  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:15  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:16  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:17  IST	No obstacle between 0.5m - 1m
+2021-01-08 12:53:18  IST	No obstacle between 0.5m - 1m

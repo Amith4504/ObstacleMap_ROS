@@ -139,6 +139,7 @@ void construct_OctTree(sensor_msgs::PointCloud2& pc2){
         }
     }
 
+
     // evenly set search points , 
     // density is given by length of pointIdxVec
 
@@ -148,6 +149,38 @@ void construct_OctTree(sensor_msgs::PointCloud2& pc2){
 
 
 
+}
+
+inline string getCurrentDateTime(string s){
+    time_t now = time(0);
+    struct tm  tstruct;
+    char  buf[80];
+    tstruct = *localtime(&now);
+    if(s=="now")
+        strftime(buf, sizeof(buf), "%Y-%m-%d %X", &tstruct);
+    else if(s=="date")
+        strftime(buf, sizeof(buf), "%Y-%m-%d", &tstruct);
+    return string(buf);
+};
+
+
+inline void Logger( string logMsg ){
+
+    string filePath = "/log_"+getCurrentDateTime("date")+".txt";
+    string now = getCurrentDateTime("now");
+    ofstream ofs(filePath.c_str(), std::ios_base::out | std::ios_base::app );
+    ofs << now << '\t' << logMsg << '\n';
+    ofs.close();
+}
+
+
+inline void Logger_bin(string logMsg){
+
+        string filepath = "/log_"+getCurrentDateTime("data")+"_0.5_1_"+".txt";
+        string now = getCurrentDateTime("now");
+        ofstream ofs(filepath.c_str() , std::ios_base::out | std::ios_base::app);
+        ofs << now << '\t' << logMsg << '\n';
+        ofs.close();
 }
 
 void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
@@ -444,36 +477,7 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
 
 }
 
-inline string getCurrentDateTime(string s){
-    time_t now = time(0);
-    struct tm  tstruct;
-    char  buf[80];
-    tstruct = *localtime(&now);
-    if(s=="now")
-        strftime(buf, sizeof(buf), "%Y-%m-%d %X", &tstruct);
-    else if(s=="date")
-        strftime(buf, sizeof(buf), "%Y-%m-%d", &tstruct);
-    return string(buf);
-};
 
-
-inline void Logger( string logMsg ){
-
-    string filePath = "/log_"+getCurrentDateTime("date")+".txt";
-    string now = getCurrentDateTime("now");
-    ofstream ofs(filePath.c_str(), std::ios_base::out | std::ios_base::app );
-    ofs << now << '\t' << logMsg << '\n';
-    ofs.close();
-}
-
-
-inline void Logger_bin(string logMsg){
-
-        string filepath = "/log_"+getCurrentDateTime("data")+"_0.5_1_"+".txt";
-        ofstream ofs(filepath.c_str() , std::ios_base::out | std::ios_base::app);
-        ofs << now << '\t' << logMsg << '\n';
-        ofs.close();
-}
 
 
 void publishPointCloud_new(Mat& img_left , Mat& dmap , int stereo_pair_id){
