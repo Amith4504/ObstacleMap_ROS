@@ -140,25 +140,32 @@ void construct_OctTree(sensor_msgs::PointCloud2& pc2){
                 searchPoint.y = y;
                 searchPoint.z = z;
                 searchPoint_vector.push_back(searchPoint);
-                std::cout << "Search Point at :" << searchPoint.x << searchPoint.y << searchPoint.z << std::endl;
+                //std::cout << "Search Point at :" << searchPoint.x <<" , "<< searchPoint.y << " , " << searchPoint.z << std::endl;
             }
         }
     }
 
+    std::cout << "searchPoint vector size :" << searchPoint_vector.size() << std::endl;
+    std::vector<std::vector<int>> pointIdxVec_vector;
+    for(int i = 0 ; i < searchPoint_vector.size() ; i++){
+     std::vector<int> pointIdxVector;
+     if(octree.voxelSearch(searchPoint_vector[i] , pointIdxVector)){ // returns a set of point indices
+        // std::cout << "Neighbours within voxel search at(" << searchPoint_vector.x 
+        // << " " << searchPoint.y 
+        // << " " << searchPoint.z << ")"
+        // << std::endl;
+        pointIdxVec_vector.push_back(pointIdxVector);
+        std::cout << "pointIdxvec size : " << pointIdxVec_vector[i].size() << std::endl;
+        // for(std::size_t i = 0 ; i <  pointIdxVec.size() ; i++){
+        //     std::cout << "  " << (*pcl_pc)[pointIdxVec[i]].x
+        //     << "  " << (*pcl_pc)[pointIdxVec[i]].y
+        //     << "  " << (*pcl_pc)[pointIdxVec[i]].z <<
+        //     std::endl;
+        // }
+     } 
 
-     // if(octree.voxelSearch(searchPoint , pointIdxVec)){ // returns a set of point indices
-    //     std::cout << "Neighbours within voxel search at(" << searchPoint.x 
-    //     << " " << searchPoint.y 
-    //     << " " << searchPoint.z << ")"
-    //     << std::endl;
+    }
 
-    //     for(std::size_t i = 0 ; i < pointIdxVec.size() ; i++){
-    //         std::cout << "  " << (*pcl_pc)[pointIdxVec[i]].x
-    //         << "  " << (*pcl_pc)[pointIdxVec[i]].y
-    //         << "  " << (*pcl_pc)[pointIdxVec[i]].z <<
-    //         std::endl;
-    //     }
-    // }
 }
 
 inline string getCurrentDateTime(string s){
