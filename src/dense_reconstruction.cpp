@@ -125,19 +125,28 @@ void construct_OctTree(sensor_msgs::PointCloud2& pc2){
 
     std::vector<int> pointIdxVec;
 
-    if(octree.voxelSearch(searchPoint , pointIdxVec)){
+    if(octree.voxelSearch(searchPoint , pointIdxVec)){ // returns a set of point indices
         std::cout << "Neighbours within voxel search at(" << searchPoint.x 
         << " " << searchPoint.y 
         << " " << searchPoint.z << ")"
         << std::endl;
 
         for(std::size_t i = 0 ; i < pointIdxVec.size() ; i++){
-            std::cout << "  " << (*cloud)[pointIdxVec[i]].x
-            << "  " << (*cloud)[pointIdxVec[i]].y
-            << "  " << (*cloud)[pointIdxVec[i]].z <<
+            std::cout << "  " << (*pcl_pc)[pointIdxVec[i]].x
+            << "  " << (*pcl_pc)[pointIdxVec[i]].y
+            << "  " << (*pcl_pc)[pointIdxVec[i]].z <<
             std::endl;
         }
     }
+
+    // evenly set search points , 
+    // density is given by length of pointIdxVec
+
+    // Search point vector
+    std::vector<pcl::PointXYZ> searchPoint_vector;
+    //set search points
+
+
 
 }
 
@@ -309,12 +318,12 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
         }
     }
 
-    // cout << "MIN Z :" << min_Z << endl;
-    // cout << "MAX_Z :" << max_Z << endl;
-    // cout << "MIN X :" << min_X << endl;
-    // cout << "MAX_X :" << max_X << endl;
-    // cout << "MIN Y :" << min_Y<< endl;
-    // cout << "MAX_Y :" << max_Y << endl;
+     cout << "MIN Z :" << min_Z << endl;
+     cout << "MAX_Z :" << max_Z << endl;
+     cout << "MIN X :" << min_X << endl;
+     cout << "MAX_X :" << max_X << endl;
+     cout << "MIN Y :" << min_Y<< endl;
+     cout << "MAX_Y :" << max_Y << endl;
     
     cout << "Window 1 points :" << window1 << endl;
     cout << "Window 2 points :" << window2 << endl;
