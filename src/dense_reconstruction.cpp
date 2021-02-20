@@ -132,7 +132,7 @@ void construct_OctTree(sensor_msgs::PointCloud2& pc2){
     double max_z = 0.3046;
 
 
-    for(double x = min_x ; x <=max_x ; x = x+ 0.07172){
+    for(double x = min_x ; x <=max_x ; x = x+ 0.14344){
         for(double y = min_y ; y<= max_y ; y = y + 0.11453){
             for(double z = min_z ; z <= max_z ; z = z+0.09055){
                 pcl::PointXYZ searchPoint;
