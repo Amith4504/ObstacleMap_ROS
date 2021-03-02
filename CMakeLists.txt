@@ -64,6 +64,12 @@ target_link_libraries(pcl_helper
 add_library(processPointClouds
           src/processPointClouds.cpp)
 
+add_library(render
+            src/render/render.cpp)
+
+target_link_libraries(render
+            ${PCL_LIBRARIES}) 
+
 target_link_libraries(processPointClouds
           ${PCL_LIBRARIES})
 
@@ -77,7 +83,8 @@ target_link_libraries(dense_reconstruction
 		     ${OpenCV_LIBS}
 		     "-lpopt -lboost_system -lJetsonGPIO"
           pcl_helper
-          processPointClouds)
+          processPointClouds
+          render)
           
 target_link_libraries(dense_reconstruction ${PCL_LIBRARIEs})
 
