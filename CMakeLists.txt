@@ -55,18 +55,17 @@ include_directories(
   ${PCL_INCLUDE_DIRS}
 )
 
-
-
-
-
 add_library(pcl_helper 
 	   src/pcl_helper.cpp)
-
 
 target_link_libraries(pcl_helper
 		     ${PCL_LIBRARIES})
 
+add_library(processPointClouds
+          src/processPointClouds.cpp)
 
+target_link_libraries(processPointClouds
+          ${PCL_LIBRARIES})
 
 rosbuild_add_executable(dense_reconstruction
   src/dense_reconstruction.cpp
@@ -75,7 +74,8 @@ rosbuild_add_executable(dense_reconstruction
 target_link_libraries(dense_reconstruction
 		     ${OpenCV_LIBS}
 		     "-lpopt -lboost_system -lJetsonGPIO"
-          pcl_helper)
+          pcl_helper
+          processPointClouds)
           
 target_link_libraries(dense_reconstruction ${PCL_LIBRARIEs})
 

@@ -20,6 +20,10 @@
 #include <opencv2/calib3d/calib3d_c.h>
 #include "popt_pp.h"
 #include "pcl_helper.h"
+#include "render/render.h"
+#include "processPointClouds.h"
+// using template for processPointCloud 
+#include "processPointClouds.cpp"
 
 #include <JetsonGPIO.h>
 
@@ -200,7 +204,30 @@ inline void Logger_bin(string logMsg){
         ofs.close();
 }
 
-void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
+void analyzeScene(pcl::visualization::PCLVisualizer::Ptr& viewer , ProcessPointCloud<pcl::PointXYZ>* pointProcessor , const pcl::PointCloud<pcl::PointXYZ>::Ptr& PointCloud){
+
+    renderPointCloud(viewer , PointCloud  , "Point Cloud");
+    int  maxIterations = 1000;
+    float distanceThreshold = 0.2;
+    
+    // Segmentation needed
+    std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> cloudClusters = pointProcessor->Clustering(PointCloud , 0.53 , 10 , 500);
+    int clusterID = 0 ;
+    std::vector<Color> colors = {Color(1 , 0 , 0) , Color(0,1,0) , Color(0, 0, 1) , Color(1 , 1 ,0)};
+
+    for(pcl::PointCloud<pcl::PointXYZ>::Ptr cluster : cloudClusters){
+        std::cout << "ClusterSize : " << cluster->size() << std::endl;
+        pointProcessor->NumPoints(cluster);
+        renderPointCloud(viewer , cluster , "ObstCloud"+std::to_string(clusterID), colors[clusterID %4]);
+        Box box = pointProcessor->BoundingBox(cluster);
+        renderBox(viewer , box , clusterID);
+        clusterID++;
+    }
+
+}
+
+
+void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id , pcl::visualization::PCLVisualizer::Ptr& viewer , ProcessPointClouds<pcl::PointXYZ>* pointProcessor , pcl::PointCloud<pcl::PointXYZ>::Ptr pointCloud) {
   
     if (debug)
     {
@@ -304,8 +331,6 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
                 max_Y = Y;
             }
 
-            
-            
             //cout<<"xyz: "<<X<<Y<<Z<<endl;
             Mat point3d_cam = Mat(3, 1, CV_64FC1);
             point3d_cam.at<double>(0,0) = X;
@@ -396,8 +421,7 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
 
     bool result = sensor_msgs::convertPointCloudToPointCloud2(pc, pc2);
 
-    if (UsePCLfiltering)
-    {
+    if (UsePCLfiltering){
         //conduct pointcloud filering provided by PCL
         pcl::PointCloud<pcl::PointXYZ> output_cloud;
 
@@ -407,43 +431,14 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
         pcl::PointCloud<pcl::PointXYZ>::Ptr cloudPTR(new pcl::PointCloud<pcl::PointXYZ>);
 
         *cloudPTR = output_cloud;
-
-        // if(cloudPTR->size() > 0){
-        //     cout << "output_cloud is not empty " << endl;
-        // }else{
-        //     cout << "output_cloud is empty" << endl;
-        // }
-
-        //cout<<"cloudPTR: "<<cloudPTR<<endl;
-
         auto result_cloud = mpPCL_helper->PCLStatisticalOutlierFilter(cloudPTR);
-
-        //cout<<"*result_cloud: "<<*result_cloud<<endl;
-
-        // if(result_cloud->size() > 0){
-        //     cout << "result cloud is not empty " << endl;
-        // }else{
-        //     cout << "result cloud is empty " << endl;
-        // }
 
         cout << "PointCloudXYZtoROSPointCloud2 :" << endl; 
         mpPCL_helper->PointCloudXYZtoROSPointCloud2(*result_cloud, pc2);
     }
 
-    construct_OctTree(pc2);
+    //construct_OctTree(pc2);
 
-    // if(pc.points.size() > 0){
-    //     cout << "PC NOT EMPTY" << endl;
-    // }else{
-    //     cout << "PC EMPTY" << endl;
-    // }
-
-    // if(pc2.data.size() > 0){
-    //     cout << "PC2 NOT EMPTY" << endl;
-    // }else{
-    //     cout << "PC2 EMPTY" << endl;
-    // }
-    
     // Obstacle detection Sensor feature here
     if(detectObstacles){
         //dividing point cloud into window blocks seperated in Z axis 
@@ -473,10 +468,20 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
                 GPIO::output(11 , GPIO::LOW);
                     cout << "\n\n in else \n\n" << endl;
             }
-
-            //start logging
+        //start logging
     }
 
+    viewer->removeAllPointClouds();
+    viewer->removeAllShapes();
+
+    //convert ros point cloud to pcl point cloud
+    mpPCL_helper->ROSPointCloud2toPointCloudXYZ(pc2, pointCloud);
+
+    // POINT CLOUD PROCESSING 
+    std::cout << "############### POINT CLOUD PROCESSING ###############" << std::endl;
+    pointCloud = pointProcessor->FilterCloud(pointCloud , 0.2 , Eigen::Vector4f(-10 , -5 , -2 , 1), Eigen::Vector4f(30 , 8 ,1, 1));
+
+    analyzeScene(viewer , pointProcessor , pointCloud );
 
     if(result)
     {
@@ -490,108 +495,8 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id) {
     else
         cout<<"Converting points failed!"<<endl;
 
-
-
+    viewer->spinOnce();
 }
-
-
-
-
-void publishPointCloud_new(Mat& img_left , Mat& dmap , int stereo_pair_id){
-
-    sensor_msgs::PointCloud pc;
-    sensor_msgs::PointCloudPtr pc_ptr;
-
-    *pc_ptr = pc;
-
-    pc.header.frame_id = "map";
-    pc.header.stamp = ros::Time::now();
-
-    cv::Mat output_3D;
-
-    cv::reprojectImageTo3D(dmap , output_3D , Q  , false);
-
-    //convert floating point 3 channel image to pointcloud points
-    pcl::PointCloud<pcl::PointXYZ>::Ptr pcl_pc_ptr(new pcl::PointCloud<pcl::PointXYZ>);
-
-    for(int rows = 0 ; rows < output_3D.rows ;  ++rows){
-
-            for(int cols = 0 ; cols < output_3D.cols ; ++cols){
-
-                cv::Point3f point = output_3D.at<cv::Point3f>(rows , cols);
-
-                pcl::PointXYZ pcl_point(point.x, point.y , point.z);
-
-                pcl_pc_ptr->push_back(pcl_point);
-            }
-    }
-
-    //convert pcl point cloud sensor_msgs::PointCloud
-    // *pcl_pc_ptr ----- > pc_ptr
-
-    sensor_msgs::PointCloud2 pc2;
-    sensor_msgs::PointCloud2Ptr pc2_ptr;
-
-    *pc2_ptr = pc2;
-
-    pcl::PCLPointCloud2 pcl_cloud;
-
-    //step 1. convert pcl_T to pcl_cloud2
-    pcl::toPCLPointCloud2(*pcl_pc_ptr, pcl_cloud);
-
-    //step 2. convert pcl_cloud2 pc to ROS pc
-    pcl_conversions::fromPCL(pcl_cloud, pc2);
-
-    std::cerr << "Cloud after projecting" << endl;
-    std::cerr << *pc_ptr << endl;
-
-    if(pc.points.size() > 0){
-        cout << "PC NOT EMPTY after loop" << endl;
-    }else{
-        cout << "PC EMPTY after loop " << endl;
-    }
-
-    if (!dmap.empty()){
-        sensor_msgs::ImagePtr disp_msg;
-        disp_msg = cv_bridge::CvImage(std_msgs::Header(), "mono8", dmap).toImageMsg();
-        dmap_pub.publish(disp_msg);
-    }
-
-    log_index++;
-
-    bool result = sensor_msgs::convertPointCloud2ToPointCloud(pc2 , pc);
-
-    std::cerr << "Point Cloud 2 after conversion" << endl;
-    std::cerr << *pc2_ptr << endl;
-
-    //PCL Filtering
-    if(UsePCLfiltering){
-
-        //pcl point cloud filtering
-        pcl::PointCloud<pcl::PointXYZ> output_cloud;
-
-        mpPCL_helper->ROSPointCloud2toPointCloudXYZ(pc2 , output_cloud);
-
-        pcl::PointCloud<pcl::PointXYZ>::Ptr cloudPTR(new pcl::PointCloud<pcl::PointXYZ>);
-
-        *cloudPTR = output_cloud;
-
-        auto result_cloud = mpPCL_helper->PCLStatisticalOutlierFilter(cloudPTR);
-
-        mpPCL_helper->PointCloudXYZtoROSPointCloud2(*result_cloud , pc2);
-    }
-
-    if(result){
-        pcl_pub.publish(pc2);
-
-        navigator_pub.publish(pc);
-    }
-    else{
-        cout << "Converting points failed" << endl;
-    }
-    
-}
-
 
 // image should be rectified and aligned
 cv::Mat generateDisparityMapBM(Mat& left, Mat& right) {
@@ -809,7 +714,11 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
 
   cout<<"Publishing pointcloud, index: "<<log_index<<endl;
 
-  publishPointCloud(img_left_color, dmap, stereo_pair_id);
+
+  //Point Cloud Viewer
+  pcl::visualization::PCLVisualizer::Ptr viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
+
+  publishPointCloud(img_left_color, dmap, stereo_pair_id , viewer);
 
   //publishPointCloud_new(img_left_color , dmap , stereo_pair_id);
 
@@ -837,10 +746,6 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
 //       dmap_cols *= dmap_rows;
 //       dmap_rows = 1; 
 //  }
-
-
-
-
 
   if(displayImage)
   {
@@ -883,7 +788,7 @@ void paramsCallback(stereo_dense_reconstruction::CamToRobotCalibParamsConfig &co
 int main(int argc, char** argv) {
 
     if(argc != 2)
-    {
+    { 
         cout<<"YOU NEED TO SPECIFY CONFIG PATH!"<<endl;
         return 0;
     }
@@ -892,7 +797,7 @@ int main(int argc, char** argv) {
     GPIO::setup(11 , GPIO::OUT);  // 
     GPIO::setup(12  , GPIO::OUT); //
 
-    string config_path = argv[1];
+    string config_path = argv[1]; 
     string configFile(config_path);
     cv::FileStorage fsSettings(configFile, cv::FileStorage::READ);
 
@@ -981,6 +886,9 @@ int main(int argc, char** argv) {
     //cout<<"-----------------------------------"<<endl;
 
     //cout<<"-----------------------------------"<<endl;
+
+    CameraAngle setAngle = XY;
+    initCamera(setAngle , viewer);
 
     printf("creating node and image transport  handles\n");
 
