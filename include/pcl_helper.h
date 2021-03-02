@@ -35,6 +35,7 @@
 #include "opencv2/core/utility.hpp"
 #include "opencv2/ximgproc.hpp"
 
+using namespace std;
 
 class pcl_helper
 {

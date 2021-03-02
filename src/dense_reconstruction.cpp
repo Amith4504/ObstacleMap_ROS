@@ -28,9 +28,8 @@
 #include <JetsonGPIO.h>
 
 using namespace cv;
-using namespace cv::ximgproc;
-using namespace std;
 
+using namespace std;
 
 Mat XR, XT, Q, P1, P2,R_downward,T_downward;
 Mat R1, R2, K1, K2, D1, D2, R;

@@ -68,6 +68,7 @@ target_link_libraries(processPointClouds
           ${PCL_LIBRARIES})
 
 list(REMOVE_ITEM PCL_LIBRARIES "vtkproj4")
+
 rosbuild_add_executable(dense_reconstruction
   src/dense_reconstruction.cpp
 )
