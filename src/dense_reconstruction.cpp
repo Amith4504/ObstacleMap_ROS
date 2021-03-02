@@ -653,7 +653,7 @@ cv::Mat generateDisparityMapSGBM(Mat& left, Mat& right) {
 }
 
 
-void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::ImageConstPtr& msg_right,int stereo_pair_id) {
+void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::ImageConstPtr& msg_right,int stereo_pair_id ,pcl::visualization::PCLVisualizer::Ptr& viewer ) {
 
   Mat tmpL = cv_bridge::toCvShare(msg_left, "mono8")->image;
   Mat tmpR = cv_bridge::toCvShare(msg_right, "mono8")->image;
@@ -714,9 +714,6 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
 
   cout<<"Publishing pointcloud, index: "<<log_index<<endl;
 
-
-  //Point Cloud Viewer
-  pcl::visualization::PCLVisualizer::Ptr viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
 
   publishPointCloud(img_left_color, dmap, stereo_pair_id , viewer);
 
@@ -886,7 +883,7 @@ int main(int argc, char** argv) {
     //cout<<"-----------------------------------"<<endl;
 
     //cout<<"-----------------------------------"<<endl;
-
+    pcl::visualization::PCLVisualizer::Ptr viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
     CameraAngle setAngle = XY;
     initCamera(setAngle , viewer);
 
@@ -940,8 +937,9 @@ int main(int argc, char** argv) {
 
     printf("Image Callback calling \n");
 
-
-    sync.registerCallback(boost::bind(&imgCallback, _1, _2,image_id));
+    //Point Cloud Viewer
+    
+    sync.registerCallback(boost::bind(&imgCallback, _1, _2,image_id , viewer));
     
     printf("Image Callback called \n");
 
