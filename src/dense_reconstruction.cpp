@@ -28,6 +28,7 @@
 #include <JetsonGPIO.h>
 
 using namespace cv;
+using namespace cv::ximgproc;
 using namespace std;
 
 
