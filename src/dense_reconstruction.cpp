@@ -678,7 +678,7 @@ cv::Mat generateDisparityMapSGBM(Mat& left, Mat& right) {
 }
 
 
-void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::ImageConstPtr& msg_right,int stereo_pair_id ,pcl::visualization::PCLVisualizer::Ptr& viewer ) {
+void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::ImageConstPtr& msg_right,int stereo_pair_id ,pcl::visualization::PCLVisualizer::Ptr& viewer ,  ProcessPointClouds<pcl::PointXYZ>* pointProcessor , pcl::PointCloud<pcl::PointXYZ>::Ptr& pointCloud) {
 
   Mat tmpL = cv_bridge::toCvShare(msg_left, "mono8")->image;
   Mat tmpR = cv_bridge::toCvShare(msg_right, "mono8")->image;
