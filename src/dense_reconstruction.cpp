@@ -229,7 +229,7 @@ void initCamera(CameraAngle setAngle, pcl::visualization::PCLVisualizer::Ptr& vi
 }
 
 
-void analyzeScene(pcl::visualization::PCLVisualizer::Ptr& viewer , ProcessPointCloud<pcl::PointXYZ>* pointProcessor , const pcl::PointCloud<pcl::PointXYZ>::Ptr& PointCloud){
+void analyzeScene(pcl::visualization::PCLVisualizer::Ptr& viewer , ProcessPointClouds<pcl::PointXYZ>* pointProcessor , const pcl::PointCloud<pcl::PointXYZ>::Ptr& PointCloud){
 
     renderPointCloud(viewer , PointCloud  , "Point Cloud");
     int  maxIterations = 1000;
@@ -244,8 +244,8 @@ void analyzeScene(pcl::visualization::PCLVisualizer::Ptr& viewer , ProcessPointC
         std::cout << "ClusterSize : " << cluster->size() << std::endl;
         pointProcessor->NumPoints(cluster);
         renderPointCloud(viewer , cluster , "ObstCloud"+std::to_string(clusterID), colors[clusterID %4]);
-        Box box = pointProcessor->BoundingBox(cluster);
-        renderBox(viewer , box , clusterID);
+        //Box box = pointProcessor->BoundingBox(cluster);
+        //renderBox(viewer , box , clusterID);
         clusterID++;
     }
 
@@ -500,7 +500,7 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id , pcl::visua
     viewer->removeAllShapes();
 
     //convert ros point cloud to pcl point cloud
-    mpPCL_helper->ROSPointCloud2toPointCloudXYZ(pc2, pointCloud);
+    mpPCL_helper->ROSPointCloud2toPointCloudXYZ(pc2, *pointCloud);
 
     // POINT CLOUD PROCESSING 
     std::cout << "############### POINT CLOUD PROCESSING ###############" << std::endl;
