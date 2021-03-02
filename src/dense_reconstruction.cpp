@@ -107,70 +107,6 @@ Mat composeTranslationCamToRobot(float x, float y, float z) {
     return (Mat_<double>(3,1) << x, y, z);
 }
 
-void construct_OctTree(sensor_msgs::PointCloud2& pc2){
-    // Routine to construct Octree , calculate density and provide obstacle data
-    pcl::PointCloud<pcl::PointXYZ>::Ptr pcl_pc (new pcl::PointCloud<pcl::PointXYZ>);
-
-    //convert from ROS point cloud to PCL point cloud
-    pcl::fromROSMsg(pc2 , *pcl_pc);
-
-    float resolution = 120.0f;
-    pcl::octree::OctreePointCloudSearch<pcl::PointXYZ> octree (resolution);
-
-    octree.setInputCloud(pcl_pc);
-    octree.addPointsFromInputCloud();
-
-    std::vector<int> pointIdxVec;
-
-    // evenly set search points , 
-    // density is given by length of pointIdxVec
-
-    // Search point vector
-    std::vector<pcl::PointXYZ> searchPoint_vector;
-    //set search points
-    double min_x = 0.242;
-    double max_x = 1.10264;
-    double min_y = 0.00281 ;
-    double max_y = 0.69;
-    double min_z = -0.1487 ;
-    double max_z = 0.3046;
-
-
-    for(double x = min_x ; x <=max_x ; x = x+ 0.14344){
-        for(double y = min_y ; y<= max_y ; y = y + 0.11453){
-            for(double z = min_z ; z <= max_z ; z = z+0.09055){
-                pcl::PointXYZ searchPoint;
-                searchPoint.x = x;
-                searchPoint.y = y;
-                searchPoint.z = z;
-                searchPoint_vector.push_back(searchPoint);
-                //std::cout << "Search Point at :" << searchPoint.x <<" , "<< searchPoint.y << " , " << searchPoint.z << std::endl;
-            }
-        }
-    }
-
-    std::cout << "searchPoint vector size :" << searchPoint_vector.size() << std::endl;
-    std::vector<std::vector<int>> pointIdxVec_vector;
-    for(int i = 0 ; i < searchPoint_vector.size() ; i++){
-     std::vector<int> pointIdxVector;
-     if(octree.voxelSearch(searchPoint_vector[i] , pointIdxVector)){ // returns a set of point indices
-        // std::cout << "Neighbours within voxel search at(" << searchPoint_vector.x 
-        // << " " << searchPoint.y 
-        // << " " << searchPoint.z << ")"
-        // << std::endl;
-        pointIdxVec_vector.push_back(pointIdxVector);
-        std::cout << "pointIdxvec size : " << pointIdxVec_vector[i].size() << std::endl;
-        // for(std::size_t i = 0 ; i <  pointIdxVec.size() ; i++){
-        //     std::cout << "  " << (*pcl_pc)[pointIdxVec[i]].x
-        //     << "  " << (*pcl_pc)[pointIdxVec[i]].y
-        //     << "  " << (*pcl_pc)[pointIdxVec[i]].z <<
-        //     std::endl;
-        // }
-     } 
-
-    }
-
-}
 
 inline string getCurrentDateTime(string s){
     time_t now = time(0);
@@ -231,7 +167,7 @@ void initCamera(CameraAngle setAngle, pcl::visualization::PCLVisualizer::Ptr& vi
 
 void analyzeScene(pcl::visualization::PCLVisualizer::Ptr& viewer , ProcessPointClouds<pcl::PointXYZ>* pointProcessor , const pcl::PointCloud<pcl::PointXYZ>::Ptr& PointCloud){
 
-    renderPointCloud(viewer , PointCloud  , "Point Cloud");
+    //renderPointCloud(viewer , PointCloud  , "Point Cloud");
     int  maxIterations = 1000;
     float distanceThreshold = 0.2;
     
