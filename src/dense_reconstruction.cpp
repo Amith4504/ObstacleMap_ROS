@@ -242,7 +242,7 @@ void analyzeScene(pcl::visualization::PCLVisualizer::Ptr& viewer , ProcessPointC
 
     for(pcl::PointCloud<pcl::PointXYZ>::Ptr cluster : cloudClusters){
         std::cout << "ClusterSize : " << cluster->size() << std::endl;
-        pointProcessor->NumPoints(cluster);
+        pointProcessor->numPoints(cluster);
         renderPointCloud(viewer , cluster , "ObstCloud"+std::to_string(clusterID), colors[clusterID %4]);
         //Box box = pointProcessor->BoundingBox(cluster);
         //renderBox(viewer , box , clusterID);
@@ -740,7 +740,7 @@ void imgCallback(const sensor_msgs::ImageConstPtr& msg_left, const sensor_msgs::
   cout<<"Publishing pointcloud, index: "<<log_index<<endl;
 
 
-  publishPointCloud(img_left_color, dmap, stereo_pair_id , viewer);
+  publishPointCloud(img_left_color, dmap, stereo_pair_id , viewer , pointProcessor , pointCloud);
 
   //publishPointCloud_new(img_left_color , dmap , stereo_pair_id);
 
@@ -963,8 +963,10 @@ int main(int argc, char** argv) {
     printf("Image Callback calling \n");
 
     //Point Cloud Viewer
+    ProcessPointClouds<pcl::PointXYZ>* pointProcessor = new ProcessPointClouds<pcl::PointXYZ>();
+    pcl::PointCloud<pcl::PointXYZ>::Ptr pointCloud;
     
-    sync.registerCallback(boost::bind(&imgCallback, _1, _2,image_id , viewer));
+    sync.registerCallback(boost::bind(&imgCallback, _1, _2,image_id , viewer , pointProcessor , pointCloud));
     
     printf("Image Callback called \n");
 
