@@ -391,6 +391,19 @@ test/fast:
 .PHONY : test/fast
 
 #=============================================================================
+# Target rules for targets named render
+
+# Build rule for target.
+render: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 render
+.PHONY : render
+
+# fast build rule for target.
+render/fast:
+	$(MAKE) -f CMakeFiles/render.dir/build.make CMakeFiles/render.dir/build
+.PHONY : render/fast
+
+#=============================================================================
 # Target rules for targets named rospack_genmsg
 
 # Build rule for target.
@@ -627,6 +640,33 @@ src/processPointClouds.cpp.s:
 	$(MAKE) -f CMakeFiles/processPointClouds.dir/build.make CMakeFiles/processPointClouds.dir/src/processPointClouds.cpp.s
 .PHONY : src/processPointClouds.cpp.s
 
+src/render/render.o: src/render/render.cpp.o
+
+.PHONY : src/render/render.o
+
+# target to build an object file
+src/render/render.cpp.o:
+	$(MAKE) -f CMakeFiles/render.dir/build.make CMakeFiles/render.dir/src/render/render.cpp.o
+.PHONY : src/render/render.cpp.o
+
+src/render/render.i: src/render/render.cpp.i
+
+.PHONY : src/render/render.i
+
+# target to preprocess a source file
+src/render/render.cpp.i:
+	$(MAKE) -f CMakeFiles/render.dir/build.make CMakeFiles/render.dir/src/render/render.cpp.i
+.PHONY : src/render/render.cpp.i
+
+src/render/render.s: src/render/render.cpp.s
+
+.PHONY : src/render/render.s
+
+# target to generate assembly for a file
+src/render/render.cpp.s:
+	$(MAKE) -f CMakeFiles/render.dir/build.make CMakeFiles/render.dir/src/render/render.cpp.s
+.PHONY : src/render/render.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -655,6 +695,7 @@ help:
 	@echo "... rosbuild_clean-test-results"
 	@echo "... ROSBUILD_gensrv_lisp"
 	@echo "... test"
+	@echo "... render"
 	@echo "... rospack_genmsg"
 	@echo "... install"
 	@echo "... rosbuild_precompile"
@@ -678,6 +719,9 @@ help:
 	@echo "... src/processPointClouds.o"
 	@echo "... src/processPointClouds.i"
 	@echo "... src/processPointClouds.s"
+	@echo "... src/render/render.o"
+	@echo "... src/render/render.i"
+	@echo "... src/render/render.s"
 .PHONY : help
 
 

@@ -154,6 +154,7 @@ dense_reconstruction_EXTERNAL_OBJECTS =
 ../bin/dense_reconstruction: /usr/local/lib/libopencv_xphoto.so.4.1.2
 ../bin/dense_reconstruction: ../lib/libpcl_helper.so
 ../bin/dense_reconstruction: ../lib/libprocessPointClouds.so
+../bin/dense_reconstruction: ../lib/librender.so
 ../bin/dense_reconstruction: /usr/local/lib/libopencv_shape.so.4.1.2
 ../bin/dense_reconstruction: /usr/local/lib/libopencv_highgui.so.4.1.2
 ../bin/dense_reconstruction: /usr/local/lib/libopencv_datasets.so.4.1.2

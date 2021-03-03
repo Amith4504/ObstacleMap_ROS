@@ -431,11 +431,13 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id , pcl::visua
             }
         //start logging
     }
-
+	
+    cout << "viewer routine" << endl;
     viewer->removeAllPointClouds();
     viewer->removeAllShapes();
 
     //convert ros point cloud to pcl point cloud
+    std::cout << "ros pc to pcl pc" << endl;
     mpPCL_helper->ROSPointCloud2toPointCloudXYZ(pc2, *pointCloud);
 
     // POINT CLOUD PROCESSING 
