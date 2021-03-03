@@ -167,7 +167,7 @@ void initCamera(CameraAngle setAngle, pcl::visualization::PCLVisualizer::Ptr& vi
 
 void analyzeScene(pcl::visualization::PCLVisualizer::Ptr& viewer , ProcessPointClouds<pcl::PointXYZ>* pointProcessor , const pcl::PointCloud<pcl::PointXYZ>::Ptr& PointCloud){
 
-    //renderPointCloud(viewer , PointCloud  , "Point Cloud");
+    renderPointCloud(viewer , PointCloud  , "Point Cloud");
     int  maxIterations = 1000;
     float distanceThreshold = 0.2;
     
@@ -179,7 +179,7 @@ void analyzeScene(pcl::visualization::PCLVisualizer::Ptr& viewer , ProcessPointC
     for(pcl::PointCloud<pcl::PointXYZ>::Ptr cluster : cloudClusters){
         std::cout << "ClusterSize : " << cluster->size() << std::endl;
         pointProcessor->numPoints(cluster);
-        renderPointCloud(viewer , cluster , "ObstCloud"+std::to_string(clusterID), colors[clusterID %4]);
+        //renderPointCloud(viewer , cluster , "ObstCloud"+std::to_string(clusterID), colors[clusterID %4]);
         //Box box = pointProcessor->BoundingBox(cluster);
         //renderBox(viewer , box , clusterID);
         clusterID++;
