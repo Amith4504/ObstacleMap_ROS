@@ -438,7 +438,9 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id , pcl::visua
 
     //convert ros point cloud to pcl point cloud
     std::cout << "ros pc to pcl pc" << endl;
-    mpPCL_helper->ROSPointCloud2toPointCloudXYZ(pc2, *pointCloud);
+    pcl::PointCloud<pcl::PointXYZ>::Ptr temp_cloud(new pcl::PointCloud<pcl::PointXYZ>);
+    mpPCL_helper->ROSPointCloud2toPointCloudXYZ(pc2, *temp_cloud);
+    pointCloud = temp_cloud;
 
     // POINT CLOUD PROCESSING 
     std::cout << "############### POINT CLOUD PROCESSING ###############" << std::endl;
