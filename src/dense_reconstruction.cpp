@@ -444,7 +444,7 @@ void publishPointCloud(Mat& img_left, Mat& dmap, int stereo_pair_id , pcl::visua
 
     // POINT CLOUD PROCESSING 
     std::cout << "############### POINT CLOUD PROCESSING ###############" << std::endl;
-    pointCloud = pointProcessor->FilterCloud(pointCloud , 0.2 , Eigen::Vector4f(-10 , -5 , -2 , 1), Eigen::Vector4f(30 , 8 ,1, 1));
+    pointCloud = pointProcessor->FilterCloud(pointCloud , 0.08 , Eigen::Vector4f(-10 , -5 , -2 , 1), Eigen::Vector4f(30 , 8 ,1, 1));
 
     analyzeScene(viewer , pointProcessor , pointCloud );
 
